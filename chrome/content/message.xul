@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    title="Test"
+    buttons="accept"
+    onload="init();">
+    
+  <script type="application/x-javascript"
+          src="chrome://fooddiary/content/message.js" />
+
+  <description id="main-message">
+  </description>
+
+</dialog>

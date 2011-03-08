@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+
+<!DOCTYPE overlay SYSTEM
+  "chrome://fooddiary/locale/browserOverlay.dtd">
+
+<overlay id="fooddiary-browser-overlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  
+  <script type="application/x-javascript"
+    src="chrome://fooddiary/content/fooddiary.js" />
+  
+  <menupopup id="menu_ToolsPopup">
+    <menuitem id="xs-hw-hello-menu" label="Food Diary"
+      accesskey="F"
+      insertafter="javascriptConsole,devToolsSeparator"
+      oncommand="fooddiary.start(event);">
+    </menuitem>
+  </menupopup>
+
+</overlay>

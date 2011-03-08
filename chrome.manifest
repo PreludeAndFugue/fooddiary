@@ -1,0 +1,5 @@
+content     fooddiary                   jar:chrome/fooddiary.jar!/content/
+skin        fooddiary   classic/1.0     jar:chrome/fooddiary.jar!/skin/
+locale      fooddiary   en-GB           jar:chrome/fooddiary.jar!/locale/en-GB/
+
+overlay chrome://browser/content/browser.xul  chrome://fooddiary/content/browserOverlay.xul

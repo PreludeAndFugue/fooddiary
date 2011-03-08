@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+<?xml-stylesheet type="text/css" href="chrome://fooddiary/skin/fooddiary.css" ?>
+
+<window title="Food Diary"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        onload="fooddiary.init()">
+
+  <script type="application/x-javascript"
+          src="chrome://fooddiary/content/fooddiary.js" />
+
+  <description><html:h1>Food Diary</html:h1></description>
+
+  <tabbox>
+    <tabs>
+      <tab label="Days" />
+      <tab label="Person" />
+      <tab label="Brands" />
+      <tab label="Foods" />
+    </tabs>
+    <tabpanels>
+
+      <tabpanel>
+      <vbox>
+
+        <groupbox>
+          <caption label="Day" />
+          <hbox pack="start" equalsize="never">
+            <datepicker id="fooddiary-day" type="popup" value="2011/02/28" />
+          </hbox>
+        </groupbox>
+
+        <hbox pack="start" equalsize="never">
+
+          <groupbox id="fooddiary-food-group" flex="2">
+            <caption label="Food" />
+
+            <groupbox>
+            <caption label="Add new item" />
+              <grid>
+                <columns>
+                  <column />
+                  <column />
+                  <column />
+                  <column />
+                </columns>
+                <rows>
+                  <row>
+                    <label value="Brand" control="fooddiary-new-brand" />
+                    <label value="Item" control="fooddiary-new-item" />
+                    <label value="Amount" control="fooddiary-new-amount" />
+                  </row>
+                  <row>
+                    <menulist id="fooddiary-new-brand" oncommand="alert('TODO: choosing brand');">
+                    </menulist>
+                    <menulist id="fooddiary-new-item" disabled="true"
+                        label="Choose a brand">
+                    </menulist>
+                    <textbox id="fooddiary-new-amount" type="number" min="0"
+                        increment="0.1" maxlength="2" decimalplaces="1"
+                        value="1" size="3">
+                    </textbox>
+                    <button label="Add" width="10px"
+                        oncommand="alert('to do: add item to day');" />
+                  </row>
+                </rows>
+              </grid>
+            </groupbox>
+
+            <tree id="fooddiary-food" hidecolumnpicker="true"
+                  seltype="single" rows="15">
+              <treecols>
+                <treecol id="diary-brand" label="Brand" flex="3" />
+                <treecol id="diary-name" label="Name" flex="4" />
+                <treecol id="diary-amount" label="Amount" flex="1" />
+                <treecol id="diary-protein" label="Protein" flex="1" />
+                <treecol id="diary-carb" label="Carbs" flex="1" />
+                <treecol id="diary-fat" label="Fat" flex="1" />
+                <treecol id="diary-salt" label="Salt" flex="1" />
+                <treecol id="diary-calories" label="kCals" flex="1" />
+              </treecols>
+              <treechildren>
+                <treeitem>
+                  <treerow>
+                    <treecell label="tesco" />
+                    <treecell label="pizza" />
+                    <treecell label="1" />
+                    <treecell label="100" />
+                    <treecell label="20" />
+                    <treecell label="40" />
+                    <treecell label="2.5" />
+                    <treecell label="890" />
+                  </treerow>
+                </treeitem>
+              </treechildren>
+            </tree>
+          </groupbox>
+
+          <groupbox id="fooddiary-exercise-group" flex="1">
+            <caption label="Exercise" />
+            can track exercise (calories out) then subtract from food
+            intake to get a net calories in.
+          </groupbox>
+        </hbox>
+      </vbox>
+      </tabpanel>
+
+      <tabpanel>can have personal details here (sex [dob], age, height, weight).
+        then use this information to make sure that calorie intake is not too
+        low or too high for the person.
+      </tabpanel>
+
+      <tabpanel>
+        <vbox>
+          <groupbox>
+            <caption label="New brand" />
+            <hbox>
+              <textbox id="new-brand-name" />
+              <button label="Create" oncommand="fooddiary.create_brand();" />
+            </hbox>
+          </groupbox>
+          <tree id="fooddiary-brands" hidecolumnpicker="true" rows="15">
+            <treecols>
+              <treecol id="brand-name" label="Brand" width="200"/>
+            </treecols>
+            <treechildren id="brand-children">
+            </treechildren>
+          </tree>
+        </vbox>
+      </tabpanel>
+
+      <tabpanel>
+      <vbox>
+        <groupbox>
+          <caption label="Add new item" />
+          <grid>
+            <columns>
+              <column />
+              <column />
+              <column />
+              <column />
+              <column />
+              <column />
+            </columns>
+            <rows>
+              <row>
+                <label value="Brand" control="fooddiary-newitem-brand" />
+                <label value="Item" control="fooddiary-newitem-name" />
+                <label value="Protein" control="fooddiary-newitem-protein" />
+                <label value="Carbs" control="fooddiary-newitem-carbs" />
+                <label value="Fat" control="fooddiary-newitem-fat" />
+                <label value="Salt" control="fooddiary-newitem-salt" />
+              </row>
+              <row>
+                <menulist id="fooddiary-newitem-brand" oncommand="alert('TODO: choosing brand');">
+                </menulist>
+                <textbox id="fooddiary-newitem-name"></textbox>
+                <textbox id="fooddiary-newitem-protein" type="number" min="0"
+                    increment="0.1" maxlength="4" decimalplaces="1"
+                    value="0" size="5" hidespinbuttons="true" width="40">
+                </textbox>
+                <textbox id="fooddiary-newitem-carbs" type="number" min="0"
+                    increment="0.1" maxlength="4" decimalplaces="1"
+                    value="0" size="1" hidespinbuttons="true" width="40">
+                </textbox>
+                <textbox id="fooddiary-newitem-fat" type="number" min="0"
+                    increment="0.1" maxlength="4" decimalplaces="1"
+                    value="0" size="2" hidespinbuttons="true" width="40">
+                </textbox>
+                <textbox id="fooddiary-newitem-salt" type="number" min="0"
+                    increment="0.1" maxlength="4" decimalplaces="1"
+                    value="0" size="3" hidespinbuttons="true" width="40">
+                </textbox>
+                <button label="Add" width="10px"
+                    oncommand="alert('to do: add item to day');" />
+              </row>
+            </rows>
+          </grid>
+        </groupbox>
+        
+        <tree id="fooddiary-items">
+        
+        </tree>
+      </vbox>
+      </tabpanel>
+    </tabpanels>
+  </tabbox>
+</window>

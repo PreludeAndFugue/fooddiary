@@ -1,0 +1,20 @@
+label
+{
+    vertical-align: middle;
+}
+
+tabbox
+{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#fooddiary-food-group
+{
+    min-width: 500px;
+}
+
+#fooddiary-exercise-group
+{
+    min-width: 100px;
+}
