@@ -45,6 +45,9 @@ chrome_manifest := chrome.manifest
 # the main database
 food_db := fooddiary.sqlite
 
+# licence file
+licence := LICENCE
+
 # This builds the extension XPI file.
 .PHONY: all
 all: $(xpi_file)
@@ -68,6 +71,7 @@ include chrome/Makefile.in
 xpi_built := $(build_dir)/$(install_rdf) \
              $(build_dir)/$(chrome_manifest) \
              $(build_dir)/$(food_db) \
+             $(build_dir)/$(licence) \
              $(chrome_jar_file)
 
 xpi_built_no_dir := $(subst $(build_dir)/,,$(xpi_built))

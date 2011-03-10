@@ -16,9 +16,11 @@
   <tabbox>
     <tabs>
       <tab label="Days" />
+      <!--
       <tab label="Person" />
-      <tab label="Brands" />
+      -->
       <tab label="Foods" />
+      <tab label="Brands" />
     </tabs>
     <tabpanels>
 
@@ -91,40 +93,26 @@
             </tree>
           </groupbox>
 
+          <!--
           <groupbox id="fooddiary-exercise-group" flex="1">
             <caption label="Exercise" />
             can track exercise (calories out) then subtract from food
             intake to get a net calories in.
           </groupbox>
+          -->
+          
         </hbox>
       </vbox>
       </tabpanel>
 
+      <!--
       <tabpanel>can have personal details here (sex [dob], age, height, weight).
         then use this information to make sure that calorie intake is not too
         low or too high for the person.
       </tabpanel>
+      -->
 
-      <tabpanel>
-        <vbox>
-          <groupbox>
-            <caption label="New brand" />
-            <hbox>
-              <textbox id="new-brand-name" />
-              <button label="Create" oncommand="fooddiary.create_brand();" />
-            </hbox>
-          </groupbox>
-          <tree id="fooddiary-brands" hidecolumnpicker="true" rows="15">
-            <treecols>
-              <treecol id="brand-id" label="Id" hidden="true" />
-              <treecol id="brand-name" label="Brand" width="200" />
-            </treecols>
-            <treechildren id="brand-children">
-            </treechildren>
-          </tree>
-        </vbox>
-      </tabpanel>
-
+      <!-- Foods -->
       <tabpanel>
       <vbox>
         <groupbox>
@@ -190,6 +178,29 @@
         </tree>
       </vbox>
       </tabpanel>
+      
+      <!-- Brands -->
+      <tabpanel>
+        <vbox>
+          <groupbox>
+            <caption label="New brand" />
+            <hbox>
+              <textbox id="new-brand-name" />
+              <button label="Create" oncommand="fooddiary.create_brand();" />
+              <button label="Rename" oncommand="fooddiary.rename_brand();" />
+            </hbox>
+          </groupbox>
+          <tree id="fooddiary-brands" hidecolumnpicker="true" rows="15">
+            <treecols>
+              <treecol id="brand-id" label="Id" hidden="true" />
+              <treecol id="brand-name" label="Brand" width="290" />
+            </treecols>
+            <treechildren id="brand-children">
+            </treechildren>
+          </tree>
+        </vbox>
+      </tabpanel>
+      
     </tabpanels>
   </tabbox>
 </window>

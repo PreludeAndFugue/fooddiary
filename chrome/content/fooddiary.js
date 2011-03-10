@@ -3,7 +3,7 @@
  * Gary Kerr
  * March 2011
  *
- *
+ * Core functionality for the fooddiary extension.
  ******************************************************************************/
 
 /*
@@ -27,7 +27,9 @@ if (!fooddiary)
  ******************************************************************************/
 fooddiary.start = function(e)
 {
-    gBrowser.addTab("chrome://fooddiary/content/fooddiary.xul");
+    var tab = gBrowser.addTab("chrome://fooddiary/content/fooddiary.xul");
+    
+    
 }
 
 /*******************************************************************************
@@ -71,7 +73,7 @@ fooddiary.refresh_day_treeview = function()
 }
 
 /*******************************************************************************
- * Add a new item to the food diary
+ * Add or update an item in the food diary
  ******************************************************************************/
 fooddiary.diary_add_item = function()
 {
@@ -88,13 +90,26 @@ fooddiary.diary_add_item = function()
     var day = datepicker.value;
     var day_id = fooddiary.db.is_day_in_db(day);
     
-    // if no record for day in db, then create one
     if (!day_id)
     {
+        // if no record for day in db, then create one and add new diary item
         day_id = fooddiary.db.new_day(day);
+        fooddiary.db.new_diary_item(day_id, item_id, amount);
     }
-    
-    fooddiary.db.new_diary_item(day_id, item_id, amount);
+    else
+    {
+        if (fooddiary.db.is_item_in_diary(day_id, item_id))
+        {
+            // when the day exists and item already in diary then just update
+            // the amount for this record
+            fooddiary.db.update_diary_item(day_id, item_id, amount);
+        }
+        else
+        {
+            // otherwise create a record for this item
+            fooddiary.db.new_diary_item(day_id, item_id, amount);
+        }
+    }
     
     // refresh the treeview
     fooddiary.refresh_day_treeview();
@@ -160,8 +175,7 @@ fooddiary.create_brand = function()
         return;
 
     // trim leading and trailing whitespace
-    // http://blog.stevenlevithan.com/archives/faster-trim-javascript
-    new_brand = new_brand.replace(/^\s+/, '').replace(/\s+$/, '');
+    new_brand = new_brand.trim();
 
     var brand_exists = fooddiary.db.is_brand_in_db(new_brand);
 
@@ -176,6 +190,49 @@ fooddiary.create_brand = function()
         fooddiary.db.new_brand(new_brand);
         // refresh treeview and menulists of brands
         fooddiary.refresh_brand_treeview();
+        fooddiary.add_brands_to_menulist('fooddiary-new-brand');
+        fooddiary.add_brands_to_menulist('fooddiary-newitem-brand');
+    }
+}
+
+/*******************************************************************************
+ * Rename a brand
+ ******************************************************************************/
+fooddiary.rename_brand = function()
+{
+    // the text in the new brand text box
+    var new_brand = document.getElementById('new-brand-name').value;
+
+    if (new_brand == "")
+        return;
+        
+    // trim whitespace from brand name
+    new_brand = new_brand.trim();
+    
+    var brand_exists = fooddiary.db.is_brand_in_db(new_brand);
+
+    if (brand_exists)
+    {
+        // brand already exists in database
+        fooddiary.show_message("Brand already exists", "Brand already exists");
+    }
+    else
+    {
+        // get brand id from treeview
+        var tree = document.getElementById('fooddiary-brands');
+        var view = tree.view;
+        var row_idx = tree.currentIndex;
+        var cols = tree.columns;
+        var id_col = cols.getNamedColumn('brand-id');
+        var brand_id = view.getCellText(row_idx, id_col);
+        
+        // update brand name in db
+        fooddiary.db.rename_brand(brand_id, new_brand);
+        
+        // refresh menulists and treeviews
+        fooddiary.refresh_brand_treeview();
+        fooddiary.refresh_day_treeview();
+        fooddiary.refresh_food_treeview();
         fooddiary.add_brands_to_menulist('fooddiary-new-brand');
         fooddiary.add_brands_to_menulist('fooddiary-newitem-brand');
     }
@@ -409,6 +466,19 @@ fooddiary.db.new_brand = function(new_brand_name)
 }
 
 /*******************************************************************************
+ * rename a brand
+ ******************************************************************************/
+fooddiary.db.rename_brand = function(brand_id, new_name)
+{
+    var db = fooddiary.db.get_conn();
+    var sql = "UPDATE brands SET brand = :new_name WHERE brand_id = :brand_id";
+    var statement = db.createStatement(sql);
+    statement.params.brand_id = brand_id;
+    statement.params.new_name = new_name;
+    statement.execute();
+}
+
+/*******************************************************************************
  * Does the brand name already exist in the database
  * Parameter:
  *  brand_name (string): the name of the brand
@@ -590,7 +660,30 @@ fooddiary.db.diary = function(day)
 }
 
 /*******************************************************************************
- * add a new item to the diary
+ * Has a particular food item been added to a particular day in the diary.
+ * Paramaters:
+ *  day_id (integer): the id of the day
+ *  item_id (integer): the id of the food item
+ * Return:
+ *  boolean
+ ******************************************************************************/
+fooddiary.db.is_item_in_diary = function(day_id, item_id)
+{
+    var db = fooddiary.db.get_conn();
+    var sql = "SELECT rowid FROM diary WHERE day_id = :day_id AND " +
+                "food_id = :item_id";
+    var statement = db.createStatement(sql);
+    statement.params.day_id = day_id;
+    statement.params.item_id = item_id;
+    
+    var result = statement.step();
+    statement.reset();
+    
+    return result
+}
+
+/*******************************************************************************
+ * add a new item to the diary or update an existing one
  * Parameters:
  *  day_id (integer): the id of the day
  *  item_id (integer): the id of the food item
@@ -601,6 +694,18 @@ fooddiary.db.new_diary_item = function(day_id, item_id, amount)
     var db = fooddiary.db.get_conn();
     var sql = "INSERT INTO diary (day_id, food_id, amount) " +
                 "VALUES (:day_id, :item_id, :amount)";
+    var statement = db.createStatement(sql);
+    statement.params.day_id = day_id;
+    statement.params.item_id = item_id;
+    statement.params.amount = amount;
+    statement.execute();
+}
+
+fooddiary.db.update_diary_item = function(day_id, item_id, amount)
+{
+    var db = fooddiary.db.get_conn();
+    var sql = "UPDATE diary SET amount = :amount WHERE day_id = :day_id " +
+                "AND food_id = :item_id";
     var statement = db.createStatement(sql);
     statement.params.day_id = day_id;
     statement.params.item_id = item_id;
