@@ -19,6 +19,10 @@ if (!fooddiary)
     var fooddiary = {};
     // namespace for database functions
     fooddiary.db = {};
+    
+    // import from js resource file
+    //alert(Components.utils.import);
+    Components.utils.import("resource://fooddiary/db.js");
 }
 
 /*******************************************************************************
@@ -28,8 +32,6 @@ if (!fooddiary)
 fooddiary.start = function(e)
 {
     var tab = gBrowser.addTab("chrome://fooddiary/content/fooddiary.xul");
-    
-    
 }
 
 /*******************************************************************************
@@ -47,6 +49,9 @@ fooddiary.init = function()
 
     // the foods tab
     fooddiary.refresh_food_treeview();
+    
+    // testing the loading of the js resource file
+    alert(foo());
 }
 
 /*******************************************************************************

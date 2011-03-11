@@ -2,4 +2,9 @@ content     fooddiary                   jar:chrome/fooddiary.jar!/content/
 skin        fooddiary   classic/1.0     jar:chrome/fooddiary.jar!/skin/
 locale      fooddiary   en-GB           jar:chrome/fooddiary.jar!/locale/en-GB/
 
+# map resource://fooddiary/* to files in /resource/*
+#resource    fooddiary                   jar:chrome/fooddiary.jar!/resource/
+# map resource://fooddiary/* to files in /modules/*
+resource    fooddiary                   jar:chrome/fooddiary.jar!/modules/
+
 overlay chrome://browser/content/browser.xul  chrome://fooddiary/content/browserOverlay.xul
