@@ -46,10 +46,17 @@ food_db := fooddiary.sqlite
 licence := LICENCE
 # readme file
 readme := README
+# modules test
+#modules := modules/db.js
+modules := modules
 
 # This builds the extension XPI file.
 .PHONY: all
 all: $(xpi_file)
+	@echo
+	@echo "modules: $(wildcard $(build_dir)/$(modules)/*.js)"
+	@echo
+	@echo $(xpi_built)
 	@echo
 	@echo "Build finished successfully."
 	@echo
@@ -72,6 +79,7 @@ xpi_built := $(build_dir)/$(install_rdf) \
              $(build_dir)/$(food_db) \
              $(build_dir)/$(licence) \
              $(build_dir)/$(readme) \
+             $(wildcard $(build_dir)/$(modules)/*.js) \
              $(chrome_jar_file)
 
 xpi_built_no_dir := $(subst $(build_dir)/,,$(xpi_built))
@@ -87,10 +95,20 @@ install: $(build_dir) $(xpi_built)
 
 $(xpi_file): $(build_dir) $(xpi_built)
 	@echo "Creating XPI file."
+#	@echo "contents: $(xpi_built)"
 	@cd $(build_dir); $(ZIP) ../$(xpi_file) $(xpi_built_no_dir)
 	@echo "Creating XPI file. Done!"
 
+# what prompts this rule to run?
+# xpi_file is dependent on build_dir, but not this...?
 $(build_dir)/%: %
+	@echo "build dir cp: $< $@"
+	@cp -f $< $@
+
+# trying to copy files in modules directory to build_dir
+# why does the above rule work and this one does nothing?
+$(build_dir)/$(modules)/%.js: chrome/$(modules)/%.js
+	@echo "build dir modules cp: $< $@"
 	@cp -f $< $@
 
 $(build_dir):
