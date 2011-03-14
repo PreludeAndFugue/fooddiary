@@ -1,5 +1,5 @@
 """
-Building the xpi file
+Building the xpi file and creating it in the bin dir
 """
 
 import os.path
@@ -18,6 +18,7 @@ top_files = Split('chrome.manifest fooddiary.sqlite install.rdf LICENCE README')
 # get all the (files and) dirs in the chrome sub-directory
 sub_dirs = Glob('chrome/*')
 
+# the complete source for the xpi file
 src = top_files + sub_dirs
 
 # xpi file is just a zip file
