@@ -162,8 +162,12 @@
           </grid>
         </groupbox>
         
+        <!--
         <tree id="fooddiary-food" hidecolumnpicker="true"
             seltype="single" rows="15" onselect="fooddiary.food_select()">
+        -->
+        <tree id="fooddiary-food" hidecolumnpicker="true"
+            seltype="single" rows="15">
           <treecols>
             <treecol id="food-id" label="FoodId" hidden="true" />
             <treecol id="food-brand" label="Brand" flex="3" />

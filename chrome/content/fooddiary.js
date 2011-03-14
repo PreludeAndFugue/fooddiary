@@ -47,6 +47,11 @@ fooddiary.init = function()
 
     // the foods tab
     fooddiary.refresh_food_treeview();
+    
+    // add event listener to the select event for the fooddiary-food
+    // treeview
+    var food = document.getElementById('fooddiary-food');
+    food.addEventListener('select', fooddiary.food_select,false);
 }
 
 /*******************************************************************************
@@ -300,7 +305,7 @@ fooddiary.create_food_item = function()
  * when an item in the food treeview of the food tab is selected its data is
  * entered in the 'add and modify food items' group
  ******************************************************************************/
-fooddiary.food_select = function()
+fooddiary.food_select = function(event)
 {
     var tree = document.getElementById('fooddiary-food');
     var view = tree.view;
