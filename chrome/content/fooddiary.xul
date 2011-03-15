@@ -24,24 +24,22 @@
     </tabs>
     <tabpanels>
 
+      <!-- Days tab -->
       <tabpanel>
+      
       <vbox>
-
-        <groupbox>
+        <groupbox flex="1">
           <caption label="Day" />
-          <hbox pack="start" equalsize="never">
             <datepicker id="fooddiary-datepicker" type="popup" 
                 onchange="fooddiary.change_day();"/>
-          </hbox>
         </groupbox>
 
-        <hbox pack="start" equalsize="never">
+        <groupbox id="fooddiary-food-group" flex="10">
+          <caption label="Food" />
 
-          <groupbox id="fooddiary-food-group" flex="2">
-            <caption label="Food" />
-
-            <groupbox>
-            <caption label="Add or modify item" />
+          <vbox>
+            <groupbox flex="1">
+              <caption label="Add or modify item" />
               <grid>
                 <columns>
                   <column />
@@ -74,24 +72,85 @@
               </grid>
             </groupbox>
 
+
             <tree id="fooddiary-diary" hidecolumnpicker="true"
-                  seltype="single" rows="15">
+                  seltype="single" rows="15" flex="5">
               <treecols>
                 <treecol id="diary-id" label="Id" flex="1" hidden="true" />
+                <splitter class="tree-splitter"/>
                 <treecol id="diary-brand-id" label="BrandId" flex="1" hidden="true" />
-                <treecol id="diary-brand" label="Brand" flex="3" />
+                <splitter class="tree-splitter"/>
+                <treecol id="diary-brand" label="Brand" flex="4" />
+                <splitter class="tree-splitter"/>
                 <treecol id="diary-name" label="Name" flex="4" />
+                <splitter class="tree-splitter"/>
                 <treecol id="diary-amount" label="Amount" flex="1" />
+                <splitter class="tree-splitter"/>
                 <treecol id="diary-protein" label="Protein" flex="1" />
+                <splitter class="tree-splitter"/>
                 <treecol id="diary-fat" label="Fat" flex="1" />
+                <splitter class="tree-splitter"/>
                 <treecol id="diary-carb" label="Carbs" flex="1" />
+                <splitter class="tree-splitter"/>
                 <treecol id="diary-salt" label="Salt" flex="1" />
+                <splitter class="tree-splitter"/>
                 <treecol id="diary-calories" label="kCals" flex="1" />
               </treecols>
               <treechildren id="diary-children">
               </treechildren>
             </tree>
-          </groupbox>
+            
+            <!-- this tree shows totals for the day -->
+            <tree id="fooddiary-totals" hidecolumnpicker="true"
+                seltype="single" rows="3" flex="1">
+              <treecols>
+                <treecol flex="9" />
+                <treecol label="Protein" flex="1" />
+                <treecol label="Fat" flex="1" />
+                <treecol label="Carbs" flex="1" />
+                <treecol label="Salt" flex="1" />
+                <treecol label="kCals" flex="1" />
+                <treechildren id="totals-children">
+                  <treeitem>
+                    <!-- totals of items in main tree -->
+                    <treerow>
+                      <treecell label="Today's total"/>
+                      <treecell label="0" />
+                      <treecell label="0" />
+                      <treecell label="0" />
+                      <treecell label="0" />
+                      <treecell label="0" />
+                    </treerow>
+                  </treeitem>
+                  <treeitem>
+                    <!-- calorie content -->
+                    <treerow>
+                      <treecell label="Calorie content" />
+                      <treecell label="0" />
+                      <treecell label="0" />
+                      <treecell label="0" />
+                      <treecell label="" />
+                      <treecell label="" />
+                    </treerow>
+                  </treeitem>
+                  <treeitem>
+                    <!-- percentages -->
+                    <treerow>
+                      <treecell label="Percentages" />
+                      <treecell label="0" />
+                      <treecell label="0" />
+                      <treecell label="0" />
+                      <treecell label="" />
+                      <treecell label="" />
+                    </treerow>
+                  </treeitem>
+                </treechildren>
+              </treecols>
+            </tree>
+          
+          </vbox>
+              
+        </groupbox>
 
           <!--
           <groupbox id="fooddiary-exercise-group" flex="1">
@@ -100,11 +159,11 @@
             intake to get a net calories in.
           </groupbox>
           -->
-          
-        </hbox>
+
       </vbox>
       </tabpanel>
 
+      <!-- Person details -->
       <!--
       <tabpanel>can have personal details here (sex [dob], age, height, weight).
         then use this information to make sure that calorie intake is not too
@@ -170,11 +229,17 @@
             seltype="single" rows="15">
           <treecols>
             <treecol id="food-id" label="FoodId" hidden="true" />
+            <splitter class="tree-splitter"/>
             <treecol id="food-brand" label="Brand" flex="3" />
+            <splitter class="tree-splitter"/>
             <treecol id="food-name" label="Food" flex="4" />
+            <splitter class="tree-splitter"/>
             <treecol id="food-protein" label="Protein" flex="1" />
+            <splitter class="tree-splitter"/>
             <treecol id="food-fat" label="Fat" flex="1" />
+            <splitter class="tree-splitter"/>
             <treecol id="food-carb" label="Carbs" flex="1" />
+            <splitter class="tree-splitter"/>
             <treecol id="food-salt" label="Salt" flex="1" />
           </treecols>
           <treechildren id="food-children">

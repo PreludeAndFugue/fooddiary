@@ -70,9 +70,9 @@ fooddiary.refresh_day_treeview = function()
     var datepicker = document.getElementById('fooddiary-datepicker');
     var day = datepicker.value;
     
-    data = fooddiary.db.diary(day);
+    var data = fooddiary.db.diary(day);
     // database colnames to insert into xul doc
-    col_names = ['day_id', 'brand_id', 'brand', 'name', 'amount', 'prot',
+    var col_names = ['day_id', 'brand_id', 'brand', 'name', 'amount', 'prot',
         'fat', 'carb', 'salt', 'calories'];
     fooddiary.refresh_treeview('diary-children', data, col_names);
 }
@@ -128,7 +128,7 @@ fooddiary.diary_add_item = function()
 fooddiary.add_brands_to_menulist = function(menulist_id)
 {
     var data = fooddiary.db.brands();
-    col_names = ['brand', 'brand_id'];
+    var col_names = ['brand', 'brand_id'];
     fooddiary.add_to_menulist(menulist_id, data, col_names);
 }
 
@@ -137,8 +137,8 @@ fooddiary.add_brands_to_menulist = function(menulist_id)
  ******************************************************************************/
 fooddiary.refresh_brand_treeview = function()
 {
-    data = fooddiary.db.brands();
-    col_names = ['brand_id', 'brand'];
+    var data = fooddiary.db.brands();
+    var col_names = ['brand_id', 'brand'];
     fooddiary.refresh_treeview('brand-children', data, col_names);
 }
 
@@ -152,8 +152,8 @@ fooddiary.change_brand_on_day = function()
     var brand_id = brand.selectedItem.value;
     
     // update the menulist of items
-    data = fooddiary.db.food(brand_id);
-    col_names = ['name', 'food_id'];
+    var data = fooddiary.db.food(brand_id);
+    var col_names = ['name', 'food_id'];
     fooddiary.add_to_menulist('fooddiary-new-item', data, col_names);
     
     // if there are no items in the list, then make sure the list is disabled
@@ -248,8 +248,8 @@ fooddiary.rename_brand = function()
  ******************************************************************************/
 fooddiary.refresh_food_treeview = function()
 {
-    data = fooddiary.db.food();
-    col_names = ['food_id', 'brand', 'name', 'prot', 'fat', 'carb', 'salt'];
+    var data = fooddiary.db.food();
+    var col_names = ['food_id', 'brand', 'name', 'prot', 'fat', 'carb', 'salt'];
     fooddiary.refresh_treeview('food-children', data, col_names);
 }
 
@@ -401,14 +401,14 @@ fooddiary.add_to_menulist = function(menulist_id, data, col_names)
  ******************************************************************************/
 fooddiary.show_message = function(title, message)
 {
-    params = {message: message, title: title};
+    var params = {message: message, title: title};
     window.openDialog("chrome://fooddiary/content/message.xul", "bla bla",
         "chrome, dialog, modal", params);
 }
 
 fooddiary.show_confirm = function(title, message)
 {
-    params = {message: message, title: title};
+    var params = {message: message, title: title};
     window.openDialog("chrome://fooddiary/content/confirm.xul",
         "bla bla", "chrome, dialog, modal", params);
     
