@@ -137,7 +137,7 @@
                 <treeitem>
                   <!-- percentages -->
                   <treerow>
-                    <treecell label="Percentages" />
+                    <treecell label="Percentage of total calories" />
                     <treecell id="total-pc-prot" label="0" />
                     <treecell id="total-pc-fat" label="0" />
                     <treecell id="total-pc-carb" label="0" />
