@@ -30,6 +30,7 @@ if (!fooddiary)
 fooddiary.start = function(e)
 {
     var tab = gBrowser.addTab("chrome://fooddiary/content/fooddiary.xul");
+    gBrowser.selectedTab = tab;
 }
 
 /*******************************************************************************
