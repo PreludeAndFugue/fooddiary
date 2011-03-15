@@ -9,9 +9,14 @@ tabbox
     margin-right: 10px;
 }
 
+.num-cell
+{
+    text-align: right;
+}
+
 #fooddiary-food-group
 {
-    min-width: 500px;
+    min-width: 600px;
 }
 
 #fooddiary-exercise-group

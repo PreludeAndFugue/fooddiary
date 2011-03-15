@@ -74,27 +74,27 @@
 
 
             <tree id="fooddiary-diary" hidecolumnpicker="true"
-                  seltype="single" rows="15" flex="5">
+                  seltype="single" rows="10" flex="5">
               <treecols>
-                <treecol id="diary-id" label="Id" flex="1" hidden="true" />
+                <treecol label="Id" flex="1" hidden="true" />
                 <splitter class="tree-splitter"/>
-                <treecol id="diary-brand-id" label="BrandId" flex="1" hidden="true" />
+                <treecol label="BrandId" flex="1" hidden="true" />
                 <splitter class="tree-splitter"/>
-                <treecol id="diary-brand" label="Brand" flex="4" />
+                <treecol label="Brand" flex="4" />
                 <splitter class="tree-splitter"/>
-                <treecol id="diary-name" label="Name" flex="4" />
+                <treecol label="Name" flex="4" />
                 <splitter class="tree-splitter"/>
-                <treecol id="diary-amount" label="Amount" flex="1" />
+                <treecol label="Amount" class="num-cell" flex="1" />
                 <splitter class="tree-splitter"/>
-                <treecol id="diary-protein" label="Protein" flex="1" />
+                <treecol label="Protein" class="num-cell" flex="1" />
                 <splitter class="tree-splitter"/>
-                <treecol id="diary-fat" label="Fat" flex="1" />
+                <treecol label="Fat" class="num-cell" flex="1" />
                 <splitter class="tree-splitter"/>
-                <treecol id="diary-carb" label="Carbs" flex="1" />
+                <treecol label="Carbs" class="num-cell" flex="1" />
                 <splitter class="tree-splitter"/>
-                <treecol id="diary-salt" label="Salt" flex="1" />
+                <treecol label="Salt" class="num-cell" flex="1" />
                 <splitter class="tree-splitter"/>
-                <treecol id="diary-calories" label="kCals" flex="1" />
+                <treecol label="kCals" class="num-cell" flex="1" />
               </treecols>
               <treechildren id="diary-children">
               </treechildren>
@@ -105,47 +105,47 @@
                 seltype="single" rows="3" flex="1">
               <treecols>
                 <treecol flex="9" />
-                <treecol label="Protein" flex="1" />
-                <treecol label="Fat" flex="1" />
-                <treecol label="Carbs" flex="1" />
-                <treecol label="Salt" flex="1" />
-                <treecol label="kCals" flex="1" />
-                <treechildren id="totals-children">
-                  <treeitem>
-                    <!-- totals of items in main tree -->
-                    <treerow>
-                      <treecell label="Today's total"/>
-                      <treecell label="0" />
-                      <treecell label="0" />
-                      <treecell label="0" />
-                      <treecell label="0" />
-                      <treecell label="0" />
-                    </treerow>
-                  </treeitem>
-                  <treeitem>
-                    <!-- calorie content -->
-                    <treerow>
-                      <treecell label="Calorie content" />
-                      <treecell label="0" />
-                      <treecell label="0" />
-                      <treecell label="0" />
-                      <treecell label="" />
-                      <treecell label="" />
-                    </treerow>
-                  </treeitem>
-                  <treeitem>
-                    <!-- percentages -->
-                    <treerow>
-                      <treecell label="Percentages" />
-                      <treecell label="0" />
-                      <treecell label="0" />
-                      <treecell label="0" />
-                      <treecell label="" />
-                      <treecell label="" />
-                    </treerow>
-                  </treeitem>
-                </treechildren>
+                <treecol label="Protein" class="num-cell" flex="1" />
+                <treecol label="Fat" class="num-cell" flex="1" />
+                <treecol label="Carbs" class="num-cell" flex="1" />
+                <treecol label="Salt" class="num-cell" flex="1" />
+                <treecol label="kCals" class="num-cell" flex="1" />
               </treecols>
+              <treechildren id="totals-children">
+                <treeitem>
+                  <!-- totals of items in main tree -->
+                  <treerow>
+                    <treecell label="Today's total (g)"/>
+                    <treecell id="total-prot" label="23" />
+                    <treecell id="total-fat" label="0" />
+                    <treecell id="total-carb" label="0" />
+                    <treecell id="total-salt" label="0" />
+                    <treecell id="total-cals" label="0" />
+                  </treerow>
+                </treeitem>
+                <treeitem>
+                  <!-- calorie content -->
+                  <treerow>
+                    <treecell label="Calorie content (kCal)" />
+                    <treecell id="total-c-prot" label="0" />
+                    <treecell id="total-c-fat" label="0" />
+                    <treecell id="total-c-carb" label="0" />
+                    <treecell label="" />
+                    <treecell label="" />
+                  </treerow>
+                </treeitem>
+                <treeitem>
+                  <!-- percentages -->
+                  <treerow>
+                    <treecell label="Percentages" />
+                    <treecell id="total-pc-prot" label="0" />
+                    <treecell id="total-pc-fat" label="0" />
+                    <treecell id="total-pc-carb" label="0" />
+                    <treecell label="" />
+                    <treecell label="" />
+                  </treerow>
+                </treeitem>
+              </treechildren>
             </tree>
           
           </vbox>
@@ -234,13 +234,13 @@
             <splitter class="tree-splitter"/>
             <treecol id="food-name" label="Food" flex="4" />
             <splitter class="tree-splitter"/>
-            <treecol id="food-protein" label="Protein" flex="1" />
+            <treecol id="food-protein" class="num-cell" label="Protein" flex="1" />
             <splitter class="tree-splitter"/>
-            <treecol id="food-fat" label="Fat" flex="1" />
+            <treecol id="food-fat" class="num-cell" label="Fat" flex="1" />
             <splitter class="tree-splitter"/>
-            <treecol id="food-carb" label="Carbs" flex="1" />
+            <treecol id="food-carb" class="num-cell" label="Carbs" flex="1" />
             <splitter class="tree-splitter"/>
-            <treecol id="food-salt" label="Salt" flex="1" />
+            <treecol id="food-salt" class="num-cell" label="Salt" flex="1" />
           </treecols>
           <treechildren id="food-children">
           </treechildren>

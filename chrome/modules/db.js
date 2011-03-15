@@ -233,6 +233,9 @@ db.create_food = function(brand_id, food_name, prot, fat, carb, salt)
  ******************************************************************************/
 db.diary = function(day)
 {
+    if (!day)
+        return;
+
     var conn = db.get_conn();
     var sql = 'SELECT diary.day_id, date, diary.food_id, amount, ' +
               'name, prot, ' +
@@ -253,6 +256,51 @@ db.diary = function(day)
     }
     
     statement.reset();
+}
+
+db.diary_total = function(day)
+{
+    var result = {};
+
+    if (!day)
+    {
+        result['prot'] = 0;
+        result['fat'] = 0;
+        result['carb'] = 0;
+        result['salt'] = 0;
+        result['cals'] = 0;
+        
+        return result;
+    }
+    
+    var conn = db.get_conn();
+    /*
+    var sql = "SELECT prot, fat, "
+              "carb, salt, amount " +
+              "FROM diary " +
+              "LEFT JOIN days ON diary.day_id = days.day_id " +
+              "LEFT JOIN food ON diary.food_id = food.food_id " +
+              "WHERE date = :day";
+    var statement = conn.createStatement(sql);
+    statement.params.day = day;
+    */
+    
+    var sql = 'SELECT total(prot*amount) as total_prot, total(fat*amount) as total_fat, total(carb*amount) as total_carb, total(salt*amount) as total_salt FROM diary LEFT JOIN days ON diary.day_id = days.day_id LEFT JOIN food ON diary.food_id = food.food_id WHERE date = :day'
+    var statement = conn.createStatement(sql);
+    statement.params.day = day;
+    
+    statement.executeStep();
+    
+    result['prot'] = statement.row.total_prot;
+    result['fat'] = statement.row.total_fat;
+    result['carb'] = statement.row.total_carb;
+    result['salt'] = statement.row.total_salt;
+    result['cals'] = 4.1*(statement.row.total_prot + statement.row.total_carb)
+                        + 9.4*statement.row.total_fat;
+    
+    statement.reset();
+    
+    return result;
 }
 
 /*******************************************************************************

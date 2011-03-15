@@ -37,10 +37,14 @@ fooddiary.start = function(e)
  ******************************************************************************/
 fooddiary.init = function()
 {
+    var datepicker = document.getElementById('fooddiary-datepicker');
+    var day = datepicker.value;
+    
     // the days tab
     fooddiary.add_brands_to_menulist('fooddiary-new-brand');
     fooddiary.add_brands_to_menulist('fooddiary-newitem-brand');
-    fooddiary.refresh_day_treeview();
+    fooddiary.refresh_day_treeview(day);
+    fooddiary.refresh_totals_treeview();
 
     // the brands tab
     fooddiary.refresh_brand_treeview();
@@ -59,22 +63,57 @@ fooddiary.init = function()
  ******************************************************************************/
 fooddiary.change_day = function()
 {
-    fooddiary.refresh_day_treeview();
+    var datepicker = document.getElementById('fooddiary-datepicker');
+    var day = datepicker.value;
+    
+    fooddiary.refresh_day_treeview(day);
+    fooddiary.refresh_totals_treeview(day);
 }
 
 /*******************************************************************************
  * update the items on the treeview in the days tab
  ******************************************************************************/
-fooddiary.refresh_day_treeview = function()
+fooddiary.refresh_day_treeview = function(day)
 {
-    var datepicker = document.getElementById('fooddiary-datepicker');
-    var day = datepicker.value;
-    
     var data = fooddiary.db.diary(day);
     // database colnames to insert into xul doc
     var col_names = ['day_id', 'brand_id', 'brand', 'name', 'amount', 'prot',
         'fat', 'carb', 'salt', 'calories'];
     fooddiary.refresh_treeview('diary-children', data, col_names);
+}
+
+/*******************************************************************************
+ * update the items of the totals at the bottom of the days tab
+ ******************************************************************************/
+fooddiary.refresh_totals_treeview = function(day)
+{
+    var data = fooddiary.db.diary_total(day);
+    var names = [['total-prot', 'prot'], ['total-fat', 'fat'],
+        ['total-carb', 'carb'], ['total-salt', 'salt'],
+        ['total-cals', 'cals']];
+    var c_names = ['total-c-prot', 'total-c-fat', 'total-c-carb'];
+    var pc_names = ['total-pc-prot', 'total-pc-fat', 'total-pc-carb'];
+    
+    // update the totals cells
+    for (var idx in names)
+    {
+        var name = names[idx];
+        var cell = document.getElementById(name[0]);
+        cell.setAttribute('label', data[name[1]].toFixed(1));
+        
+        if (idx < 3)
+        {
+            // update the calorie content cells
+            var c_cell = document.getElementById(c_names[idx]);
+            var mult = (idx == 1 ? 9.4 : 4.1);
+            var c_value = (mult*data[name[1]]).toFixed(1);
+            c_cell.setAttribute('label', c_value);
+            // update the percentages cells
+            var pc_cell = document.getElementById(pc_names[idx]);
+            var pc_value = data['cals'] ? 100*c_value/data['cals'] : 0;
+            pc_cell.setAttribute('label', pc_value.toFixed(1) + '%');
+        }
+    }
 }
 
 /*******************************************************************************
@@ -116,8 +155,9 @@ fooddiary.diary_add_item = function()
         }
     }
     
-    // refresh the treeview
-    fooddiary.refresh_day_treeview();
+    // refresh the treeviews
+    fooddiary.refresh_day_treeview(day);
+    fooddiary.refresh_totals_treeview(day);
 }
 
 /*******************************************************************************
@@ -230,13 +270,16 @@ fooddiary.rename_brand = function()
         var cols = tree.columns;
         var id_col = cols.getNamedColumn('brand-id');
         var brand_id = view.getCellText(row_idx, id_col);
+        // get the current day
+        var datepicker = document.getElementById('fooddiary-datepicker');
+        var day = datepicker.value;
         
         // update brand name in db
         fooddiary.db.rename_brand(brand_id, new_brand);
         
         // refresh menulists and treeviews
         fooddiary.refresh_brand_treeview();
-        fooddiary.refresh_day_treeview();
+        fooddiary.refresh_day_treeview(day);
         fooddiary.refresh_food_treeview();
         fooddiary.add_brands_to_menulist('fooddiary-new-brand');
         fooddiary.add_brands_to_menulist('fooddiary-newitem-brand');
@@ -290,6 +333,12 @@ fooddiary.create_food_item = function()
         if (fooddiary.show_confirm("Update food item", "You are about to modify an existing food item. Do you want to continue?"))
         {
             fooddiary.db.update_food(food_id, prot, fat, carb, salt);
+            // in this case update the treeviews on the days tab just in case
+            // the updated food item is in today's record
+            var datepicker = document.getElementById('fooddiary-datepicker');
+            var day = datepicker.value;
+            fooddiary.refresh_day_treeview(day);
+            fooddiary.refresh_totals_treeview(day);
         }
     }
     else
@@ -361,6 +410,8 @@ fooddiary.refresh_treeview = function(childname, data, col_names)
             var treecell = document.createElement("treecell");
             var col_name = col_names[i];
             var col_data = row[col_name];
+            if (typeof col_data == "number")
+                col_data = col_data.toFixed(1);
             treecell.setAttribute('label', col_data);
             treerow.appendChild(treecell);
         }
