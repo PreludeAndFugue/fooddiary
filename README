@@ -3,3 +3,18 @@ Food Diary
 
 Food Diary is a Firefox extension which allows you to track your calorie
 consumption on a daily basis, thus helping you to manage your diet.
+
+The data is stored in an sqlite database in the installation folder of the
+extension.
+
+How to Build
+============
+
+SCons (http://www.scons.org/) is used to build the xpi file. Python must be
+installed to run Scons.
+
+Type 'scons' on the command line in the source directory. This will build
+'fooddiary.xpi' in a directory called 'bin' at the same level as the source
+directory.
+
+Type 'scons -c' to clean any previous build.
