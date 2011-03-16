@@ -138,20 +138,20 @@ db.food_by_id = function(food_id)
                 "brands.brand_id WHERE food_id = :food_id";
     var statement = conn.createStatement(sql);
     statement.params.food_id = food_id;
-    
+
     result = {};
     cols = ['brand_id', 'brand', 'food_id', 'name', 'prot', 'fat', 'carb', 'salt'];
-    
+
     statement.executeStep();
-    
+
     for (var idx in cols)
     {
         var col_name = cols[idx];
         result[col_name] = statement.row[col_name];
     }
-    
+
     statement.reset();
-    
+
     return result
 }
 
@@ -202,7 +202,7 @@ db.update_food = function(food_id, prot, fat, carb, salt)
     statement.params.carb = carb;
     statement.params.salt = salt;
     statement.params.food_id = food_id;
-    
+
     statement.execute();
 }
 
@@ -222,7 +222,7 @@ db.create_food = function(brand_id, food_name, prot, fat, carb, salt)
     statement.params.fat = fat;
     statement.params.carb = carb;
     statement.params.salt = salt;
-    
+
     statement.execute();
 }
 
@@ -249,12 +249,12 @@ db.diary = function(day)
               'ORDER BY brand, name';
     var statement = conn.createStatement(sql);
     statement.params.day = day;
-    
+
     while (statement.executeStep())
     {
         yield statement.row;
     }
-    
+
     statement.reset();
 }
 
@@ -269,10 +269,10 @@ db.diary_total = function(day)
         result['carb'] = 0;
         result['salt'] = 0;
         result['cals'] = 0;
-        
+
         return result;
     }
-    
+
     var conn = db.get_conn();
     /*
     var sql = "SELECT prot, fat, "
@@ -284,22 +284,22 @@ db.diary_total = function(day)
     var statement = conn.createStatement(sql);
     statement.params.day = day;
     */
-    
+
     var sql = 'SELECT total(prot*amount) as total_prot, total(fat*amount) as total_fat, total(carb*amount) as total_carb, total(salt*amount) as total_salt FROM diary LEFT JOIN days ON diary.day_id = days.day_id LEFT JOIN food ON diary.food_id = food.food_id WHERE date = :day'
     var statement = conn.createStatement(sql);
     statement.params.day = day;
-    
+
     statement.executeStep();
-    
+
     result['prot'] = statement.row.total_prot;
     result['fat'] = statement.row.total_fat;
     result['carb'] = statement.row.total_carb;
     result['salt'] = statement.row.total_salt;
     result['cals'] = 4.1*(statement.row.total_prot + statement.row.total_carb)
                         + 9.4*statement.row.total_fat;
-    
+
     statement.reset();
-    
+
     return result;
 }
 
@@ -319,10 +319,10 @@ db.is_item_in_diary = function(day_id, item_id)
     var statement = conn.createStatement(sql);
     statement.params.day_id = day_id;
     statement.params.item_id = item_id;
-    
+
     var result = statement.step();
     statement.reset();
-    
+
     return result
 }
 
@@ -400,12 +400,12 @@ db.new_day = function(day)
     var statement = conn.createStatement(sql);
     statement.params.date = day;
     statement.execute();
-    
+
     // should return the id of the new record that has been created
     statement = conn.createStatement('SELECT last_insert_rowid() AS rowid');
     statement.step();
     var result = statement.row.rowid;
     statement.reset();
-    
+
     return result;
 }

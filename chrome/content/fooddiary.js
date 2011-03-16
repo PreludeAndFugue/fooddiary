@@ -17,7 +17,7 @@ const Cu = Components.utils;
 if (!fooddiary)
 {
     var fooddiary = {};
-    
+
     // import database functions from js resource file into the fooddiary
     // namespace
     Components.utils.import("resource://fooddiary/db.js", fooddiary);
@@ -30,7 +30,7 @@ fooddiary.init = function()
 {
     var datepicker = document.getElementById('fooddiary-datepicker');
     var day = datepicker.value;
-    
+
     // the days tab
     fooddiary.add_brands_to_menulist('fooddiary-new-brand');
     fooddiary.add_brands_to_menulist('fooddiary-newitem-brand');
@@ -42,7 +42,7 @@ fooddiary.init = function()
 
     // the foods tab
     fooddiary.refresh_food_treeview();
-    
+
     // add event listener to the select event for the fooddiary-food
     // treeview
     var food = document.getElementById('fooddiary-food');
@@ -56,7 +56,7 @@ fooddiary.change_day = function()
 {
     var datepicker = document.getElementById('fooddiary-datepicker');
     var day = datepicker.value;
-    
+
     fooddiary.refresh_day_treeview(day);
     fooddiary.refresh_totals_treeview(day);
 }
@@ -84,14 +84,14 @@ fooddiary.refresh_totals_treeview = function(day)
         ['total-cals', 'cals']];
     var c_names = ['total-c-prot', 'total-c-fat', 'total-c-carb'];
     var pc_names = ['total-pc-prot', 'total-pc-fat', 'total-pc-carb'];
-    
+
     // update the totals cells
     for (var idx in names)
     {
         var name = names[idx];
         var cell = document.getElementById(name[0]);
         cell.setAttribute('label', data[name[1]].toFixed(1));
-        
+
         // only for prot, fat and carb columns
         if (idx < 3)
         {
@@ -117,15 +117,15 @@ fooddiary.diary_add_item = function()
     var item_id = document.getElementById('fooddiary-new-item').value;
     if (!item_id)
         return;
-        
+
     // the amount
     var amount = document.getElementById('fooddiary-new-amount').valueNumber;
-    
+
     // the current day
     var datepicker = document.getElementById('fooddiary-datepicker');
     var day = datepicker.value;
     var day_id = fooddiary.db.is_day_in_db(day);
-    
+
     if (!day_id)
     {
         // if no record for day in db, then create one and add new diary item
@@ -146,7 +146,7 @@ fooddiary.diary_add_item = function()
             fooddiary.db.new_diary_item(day_id, item_id, amount);
         }
     }
-    
+
     // refresh the treeviews
     fooddiary.refresh_day_treeview(day);
     fooddiary.refresh_totals_treeview(day);
@@ -182,12 +182,12 @@ fooddiary.change_brand_on_day = function()
 {
     var brand = document.getElementById('fooddiary-new-brand');
     var brand_id = brand.selectedItem.value;
-    
+
     // update the menulist of items
     var data = fooddiary.db.food(brand_id);
     var col_names = ['name', 'food_id'];
     fooddiary.add_to_menulist('fooddiary-new-item', data, col_names);
-    
+
     // if there are no items in the list, then make sure the list is disabled
     var new_item = document.getElementById('fooddiary-new-item');
     if (new_item.itemCount == 0)
@@ -220,7 +220,7 @@ fooddiary.create_brand = function()
     {
         var strbundle = document.getElementById("fd-strings");
         var brand_exists = strbundle.getString("brand_exists");
-    
+
         // brand already exists in database
         fooddiary.show_message(brand_exists, brand_exists);
     }
@@ -245,10 +245,10 @@ fooddiary.rename_brand = function()
 
     if (new_brand == "")
         return;
-        
+
     // trim whitespace from brand name
     new_brand = new_brand.trim();
-    
+
     var brand_exists = fooddiary.db.is_brand_in_db(new_brand);
 
     if (brand_exists)
@@ -270,10 +270,10 @@ fooddiary.rename_brand = function()
         // get the current day
         var datepicker = document.getElementById('fooddiary-datepicker');
         var day = datepicker.value;
-        
+
         // update brand name in db
         fooddiary.db.rename_brand(brand_id, new_brand);
-        
+
         // refresh menulists and treeviews
         fooddiary.refresh_brand_treeview();
         fooddiary.refresh_day_treeview(day);
@@ -305,14 +305,14 @@ fooddiary.create_food_item = function()
     // only continue if a brand is selected
     if (!brand_id)
         return;
-        
+
     // the new item name
     var item = document.getElementById('fooddiary-newitem-name');
     var item_name = item.value.trim();
     // only continue if a name has been entered
     if (!item_name)
         return;
-        
+
     // protein
     var prot = document.getElementById('fooddiary-newitem-protein').valueNumber;
     // fat
@@ -321,16 +321,16 @@ fooddiary.create_food_item = function()
     var carb = document.getElementById('fooddiary-newitem-carbs').valueNumber;
     // salt
     var salt = document.getElementById('fooddiary-newitem-salt').valueNumber;
-        
+
     var food_id = fooddiary.db.is_food_in_db(brand_id, item_name);
     //alert('food in db: ' + food_id);
-    
+
     if (food_id)
     {
         var strbundle = document.getElementById("fd-strings");
         var update_title = strbundle.getString("update_food_title");
         var update_msg = strbundle.getString("update_food_message");
-    
+
         if (fooddiary.show_confirm(update_title, update_msg))
         {
             fooddiary.db.update_food(food_id, prot, fat, carb, salt);
@@ -346,7 +346,7 @@ fooddiary.create_food_item = function()
     {
         fooddiary.db.create_food(brand_id, item_name, prot, fat, carb, salt);
     }
-    
+
     // once the item has been added or change, need to refresh the treeview
     fooddiary.refresh_food_treeview();
 }
@@ -371,13 +371,13 @@ fooddiary.food_select = function(event)
         'fooddiary-newitem-fat', 'fooddiary-newitem-carbs',
         'fooddiary-newitem-salt'];
     col_names = ['name', 'prot', 'fat', 'carb', 'salt'];
-    
+
     for (var i = 0; i < col_names.length; i++)
     {
         var item = document.getElementById(textbox_names[i]);
         item.value = row[col_names[i]];
     }
-    
+
     var brand_list = document.getElementById('fooddiary-newitem-brand');
     //alert(brand_list.selectedItem);
     brand_list.value = row['brand_id'];
@@ -463,6 +463,6 @@ fooddiary.show_confirm = function(title, message)
     var params = {message: message, title: title};
     window.openDialog("chrome://fooddiary/content/confirm.xul",
         "bla bla", "chrome, dialog, modal", params);
-    
+
     return params.accept;
 }

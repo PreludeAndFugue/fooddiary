@@ -8,8 +8,8 @@
     <em:version>0.0.1</em:version>
     <em:type>2</em:type>
 
-    <!-- Target Application this extension can install into, 
-         with minimum and maximum supported versions. --> 
+    <!-- Target Application this extension can install into,
+         with minimum and maximum supported versions. -->
     <em:targetApplication>
         <Description>
             <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
@@ -23,5 +23,5 @@
     <em:description>Test: record your daily food consumption</em:description>
     <em:creator>Gary Kerr</em:creator>
     <em:homepageURL>http://www.preludeandfugue.net/</em:homepageURL>
-    </Description>      
+    </Description>
 </RDF>

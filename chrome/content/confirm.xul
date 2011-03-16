@@ -9,7 +9,7 @@
     onload="init();"
     ondialogaccept="accept();"
     ondialogcancel="cancel();">
-    
+
   <script type="application/x-javascript"
           src="chrome://fooddiary/content/message.js" />
 

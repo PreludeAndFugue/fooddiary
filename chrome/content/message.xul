@@ -7,7 +7,7 @@
     title="&fd.title;"
     buttons="accept"
     onload="init();">
-    
+
   <script type="application/x-javascript"
           src="chrome://fooddiary/content/message.js" />
 

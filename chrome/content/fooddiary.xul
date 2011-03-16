@@ -12,7 +12,7 @@
 
   <script type="application/x-javascript"
           src="chrome://fooddiary/content/fooddiary.js" />
-          
+
   <stringbundleset id="stringbundleset">
     <stringbundle id="fd-strings"
         src="chrome://fooddiary/locale/fooddiary.properties" />
@@ -33,11 +33,11 @@
 
       <!-- Days tab -->
       <tabpanel>
-      
+
       <vbox>
         <groupbox flex="1">
           <caption label="&fd.day;" />
-            <datepicker id="fooddiary-datepicker" type="popup" 
+            <datepicker id="fooddiary-datepicker" type="popup"
                 onchange="fooddiary.change_day();"/>
         </groupbox>
 
@@ -106,7 +106,7 @@
               <treechildren id="diary-children">
               </treechildren>
             </tree>
-            
+
             <!-- this tree shows totals for the day -->
             <tree id="fooddiary-totals" hidecolumnpicker="true"
                 seltype="single" rows="3" flex="1">
@@ -154,9 +154,9 @@
                 </treeitem>
               </treechildren>
             </tree>
-          
+
           </vbox>
-              
+
         </groupbox>
 
           <!--
@@ -227,7 +227,7 @@
             </rows>
           </grid>
         </groupbox>
-        
+
         <!--
         <tree id="fooddiary-food" hidecolumnpicker="true"
             seltype="single" rows="15" onselect="fooddiary.food_select()">
@@ -254,7 +254,7 @@
         </tree>
       </vbox>
       </tabpanel>
-      
+
       <!-- Brands -->
       <tabpanel>
         <vbox>
@@ -276,7 +276,7 @@
           </tree>
         </vbox>
       </tabpanel>
-      
+
     </tabpanels>
   </tabbox>
 </window>
