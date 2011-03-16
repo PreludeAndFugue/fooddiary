@@ -139,8 +139,8 @@ db.food_by_id = function(food_id)
     var statement = conn.createStatement(sql);
     statement.params.food_id = food_id;
 
-    result = {};
-    cols = ['brand_id', 'brand', 'food_id', 'name', 'prot', 'fat', 'carb', 'salt'];
+    var result = {};
+    var cols = ['brand_id', 'brand', 'food_id', 'name', 'prot', 'fat', 'carb', 'salt'];
 
     statement.executeStep();
 
