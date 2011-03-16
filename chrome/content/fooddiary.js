@@ -92,6 +92,7 @@ fooddiary.refresh_totals_treeview = function(day)
         var cell = document.getElementById(name[0]);
         cell.setAttribute('label', data[name[1]].toFixed(1));
         
+        // only for prot, fat and carb columns
         if (idx < 3)
         {
             // update the calorie content cells
@@ -217,8 +218,11 @@ fooddiary.create_brand = function()
 
     if (brand_exists)
     {
+        var strbundle = document.getElementById("fd-strings");
+        var brand_exists = strbundle.getString("brand_exists");
+    
         // brand already exists in database
-        fooddiary.show_message("Brand already exists", "Brand already exists");
+        fooddiary.show_message(brand_exists, brand_exists);
     }
     else
     {
@@ -249,8 +253,10 @@ fooddiary.rename_brand = function()
 
     if (brand_exists)
     {
+        var strbundle = document.getElementById("fd-strings");
+        var brand_exists = strbundle.getString("brand_exists");
         // brand already exists in database
-        fooddiary.show_message("Brand already exists", "Brand already exists");
+        fooddiary.show_message(brand_exists, brand_exists);
     }
     else
     {
@@ -321,7 +327,11 @@ fooddiary.create_food_item = function()
     
     if (food_id)
     {
-        if (fooddiary.show_confirm("Update food item", "You are about to modify an existing food item. Do you want to continue?"))
+        var strbundle = document.getElementById("fd-strings");
+        var update_title = strbundle.getString("update_food_title");
+        var update_msg = strbundle.getString("update_food_message");
+    
+        if (fooddiary.show_confirm(update_title, update_msg))
         {
             fooddiary.db.update_food(food_id, prot, fat, carb, salt);
             // in this case update the treeviews on the days tab just in case

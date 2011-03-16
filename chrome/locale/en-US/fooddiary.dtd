@@ -1,0 +1,24 @@
+<!ENTITY fd.title "Food Diary">
+<!ENTITY fd.day "Day">
+<!ENTITY fd.days "Days">
+<!ENTITY fd.person "Person">
+<!ENTITY fd.food "Food">
+<!ENTITY fd.foods "Foods">
+<!ENTITY fd.brand "Brand">
+<!ENTITY fd.new-brand "New Brand">
+<!ENTITY fd.brands "Brands">
+<!ENTITY fd.add-modify "Add or Modify Item">
+<!ENTITY fd.item "Item">
+<!ENTITY fd.amount "Amount">
+<!ENTITY fd.update "Update">
+<!ENTITY fd.create "Create">
+<!ENTITY fd.rename "Rename">
+<!ENTITY fd.name "Name">
+<!ENTITY fd.prot "Protein">
+<!ENTITY fd.fat "Fat">
+<!ENTITY fd.carb "Carbs">
+<!ENTITY fd.salt "Salt">
+<!ENTITY fd.cals "kCals">
+<!ENTITY fd.total-g "Today's total (g)">
+<!ENTITY fd.total-cal "Calorie content (kCal)">
+<!ENTITY fd.total-pc "Percentage of total calories">

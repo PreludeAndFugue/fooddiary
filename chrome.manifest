@@ -1,6 +1,6 @@
 content     fooddiary                   chrome/content/
 skin        fooddiary   classic/1.0     chrome/skin/
-locale      fooddiary   en-GB           chrome/locale/en-GB/
+locale      fooddiary   en-US           chrome/locale/en-US/
 
 # map resource://fooddiary/* to files in chrome/modules/*
 resource    fooddiary                   chrome/modules/

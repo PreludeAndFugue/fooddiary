@@ -3,24 +3,31 @@
 <?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
 <?xml-stylesheet type="text/css" href="chrome://fooddiary/skin/fooddiary.css" ?>
 
-<window title="Food Diary"
+<!DOCTYPE window SYSTEM "chrome://fooddiary/locale/fooddiary.dtd">
+
+<window title="&fd.title;"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         onload="fooddiary.init()">
 
   <script type="application/x-javascript"
           src="chrome://fooddiary/content/fooddiary.js" />
+          
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="fd-strings"
+        src="chrome://fooddiary/locale/fooddiary.properties" />
+  </stringbundleset>
 
-  <description><html:h1>Food Diary</html:h1></description>
+  <description><html:h1>&fd.title;</html:h1></description>
 
   <tabbox>
     <tabs>
-      <tab label="Days" />
+      <tab label="&fd.days;" />
       <!--
-      <tab label="Person" />
+      <tab label="&fd.person;" />
       -->
-      <tab label="Foods" />
-      <tab label="Brands" />
+      <tab label="&fd.foods;" />
+      <tab label="&fd.brands;" />
     </tabs>
     <tabpanels>
 
@@ -29,17 +36,17 @@
       
       <vbox>
         <groupbox flex="1">
-          <caption label="Day" />
+          <caption label="&fd.day;" />
             <datepicker id="fooddiary-datepicker" type="popup" 
                 onchange="fooddiary.change_day();"/>
         </groupbox>
 
         <groupbox id="fooddiary-food-group" flex="10">
-          <caption label="Food" />
+          <caption label="&fd.food;" />
 
           <vbox>
             <groupbox flex="1">
-              <caption label="Add or modify item" />
+              <caption label="&fd.add-modify;" />
               <grid>
                 <columns>
                   <column />
@@ -49,9 +56,9 @@
                 </columns>
                 <rows>
                   <row>
-                    <label value="Brand" control="fooddiary-new-brand" />
-                    <label value="Item" control="fooddiary-new-item" />
-                    <label value="Amount" control="fooddiary-new-amount" />
+                    <label value="&fd.brand;" control="fooddiary-new-brand" />
+                    <label value="&fd.item;" control="fooddiary-new-item" />
+                    <label value="&fd.amount;" control="fooddiary-new-amount" />
                   </row>
                   <row>
                     <menulist id="fooddiary-new-brand" crop="end"
@@ -65,7 +72,7 @@
                         increment="0.1" maxlength="2" decimalplaces="1"
                         value="1" size="3">
                     </textbox>
-                    <button label="Update" width="10px"
+                    <button label="&fd.update;" width="10px"
                         oncommand="fooddiary.diary_add_item();" />
                   </row>
                 </rows>
@@ -80,21 +87,21 @@
                 <splitter class="tree-splitter"/>
                 <treecol label="BrandId" flex="1" hidden="true" />
                 <splitter class="tree-splitter"/>
-                <treecol label="Brand" flex="4" />
+                <treecol label="&fd.brand;" flex="4" />
                 <splitter class="tree-splitter"/>
-                <treecol label="Name" flex="4" />
+                <treecol label="&fd.name;" flex="4" />
                 <splitter class="tree-splitter"/>
-                <treecol label="Amount" class="num-cell" flex="1" />
+                <treecol label="&fd.amount;" class="num-cell" flex="1" />
                 <splitter class="tree-splitter"/>
-                <treecol label="Protein" class="num-cell" flex="1" />
+                <treecol label="&fd.prot;" class="num-cell" flex="1" />
                 <splitter class="tree-splitter"/>
-                <treecol label="Fat" class="num-cell" flex="1" />
+                <treecol label="&fd.fat;" class="num-cell" flex="1" />
                 <splitter class="tree-splitter"/>
-                <treecol label="Carbs" class="num-cell" flex="1" />
+                <treecol label="&fd.carb;" class="num-cell" flex="1" />
                 <splitter class="tree-splitter"/>
-                <treecol label="Salt" class="num-cell" flex="1" />
+                <treecol label="&fd.salt;" class="num-cell" flex="1" />
                 <splitter class="tree-splitter"/>
-                <treecol label="kCals" class="num-cell" flex="1" />
+                <treecol label="&fd.cals;" class="num-cell" flex="1" />
               </treecols>
               <treechildren id="diary-children">
               </treechildren>
@@ -105,17 +112,17 @@
                 seltype="single" rows="3" flex="1">
               <treecols>
                 <treecol flex="9" />
-                <treecol label="Protein" class="num-cell" flex="1" />
-                <treecol label="Fat" class="num-cell" flex="1" />
-                <treecol label="Carbs" class="num-cell" flex="1" />
-                <treecol label="Salt" class="num-cell" flex="1" />
-                <treecol label="kCals" class="num-cell" flex="1" />
+                <treecol label="&fd.prot;" class="num-cell" flex="1" />
+                <treecol label="&fd.fat;" class="num-cell" flex="1" />
+                <treecol label="&fd.carb;" class="num-cell" flex="1" />
+                <treecol label="&fd.salt;" class="num-cell" flex="1" />
+                <treecol label="&fd.cals;" class="num-cell" flex="1" />
               </treecols>
               <treechildren id="totals-children">
                 <treeitem>
                   <!-- totals of items in main tree -->
                   <treerow>
-                    <treecell label="Today's total (g)"/>
+                    <treecell label="&fd.total-g;"/>
                     <treecell id="total-prot" label="23" />
                     <treecell id="total-fat" label="0" />
                     <treecell id="total-carb" label="0" />
@@ -126,7 +133,7 @@
                 <treeitem>
                   <!-- calorie content -->
                   <treerow>
-                    <treecell label="Calorie content (kCal)" />
+                    <treecell label="&fd.total-cal;" />
                     <treecell id="total-c-prot" label="0" />
                     <treecell id="total-c-fat" label="0" />
                     <treecell id="total-c-carb" label="0" />
@@ -137,7 +144,7 @@
                 <treeitem>
                   <!-- percentages -->
                   <treerow>
-                    <treecell label="Percentage of total calories" />
+                    <treecell label="&fd.total-pc;" />
                     <treecell id="total-pc-prot" label="0" />
                     <treecell id="total-pc-fat" label="0" />
                     <treecell id="total-pc-carb" label="0" />
@@ -175,7 +182,7 @@
       <tabpanel>
       <vbox>
         <groupbox>
-          <caption label="Add new item" />
+          <caption label="&fd.add-modify;" />
           <grid>
             <columns>
               <column />
@@ -187,12 +194,12 @@
             </columns>
             <rows>
               <row>
-                <label value="Brand" control="fooddiary-newitem-brand" />
-                <label value="Item" control="fooddiary-newitem-name" />
-                <label value="Protein" control="fooddiary-newitem-protein" />
-                <label value="Fat" control="fooddiary-newitem-fat" />
-                <label value="Carbs" control="fooddiary-newitem-carbs" />
-                <label value="Salt" control="fooddiary-newitem-salt" />
+                <label value="&fd.brand;" control="fooddiary-newitem-brand" />
+                <label value="&fd.name;" control="fooddiary-newitem-name" />
+                <label value="&fd.prot;" control="fooddiary-newitem-protein" />
+                <label value="&fd.fat;" control="fooddiary-newitem-fat" />
+                <label value="&fd.carb;" control="fooddiary-newitem-carbs" />
+                <label value="&fd.salt;" control="fooddiary-newitem-salt" />
               </row>
               <row>
                 <menulist id="fooddiary-newitem-brand">
@@ -214,7 +221,7 @@
                     increment="0.1" maxlength="4" decimalplaces="1"
                     value="0" size="3" hidespinbuttons="true" width="40">
                 </textbox>
-                <button label="Update" width="10px"
+                <button label="&fd.update;" width="10px"
                     oncommand="fooddiary.create_food_item();" />
               </row>
             </rows>
@@ -230,17 +237,17 @@
           <treecols>
             <treecol id="food-id" label="FoodId" hidden="true" />
             <splitter class="tree-splitter"/>
-            <treecol id="food-brand" label="Brand" flex="3" />
+            <treecol id="food-brand" label="&fd.brand;" flex="3" />
             <splitter class="tree-splitter"/>
-            <treecol id="food-name" label="Food" flex="4" />
+            <treecol id="food-name" label="&fd.name;" flex="4" />
             <splitter class="tree-splitter"/>
-            <treecol id="food-protein" class="num-cell" label="Protein" flex="1" />
+            <treecol id="food-protein" class="num-cell" label="&fd.prot;" flex="1" />
             <splitter class="tree-splitter"/>
-            <treecol id="food-fat" class="num-cell" label="Fat" flex="1" />
+            <treecol id="food-fat" class="num-cell" label="&fd.fat;" flex="1" />
             <splitter class="tree-splitter"/>
-            <treecol id="food-carb" class="num-cell" label="Carbs" flex="1" />
+            <treecol id="food-carb" class="num-cell" label="&fd.carb;" flex="1" />
             <splitter class="tree-splitter"/>
-            <treecol id="food-salt" class="num-cell" label="Salt" flex="1" />
+            <treecol id="food-salt" class="num-cell" label="&fd.salt;" flex="1" />
           </treecols>
           <treechildren id="food-children">
           </treechildren>
@@ -252,17 +259,17 @@
       <tabpanel>
         <vbox>
           <groupbox>
-            <caption label="New brand" />
+            <caption label="&fd.new-brand;" />
             <hbox>
               <textbox id="new-brand-name" />
-              <button label="Create" oncommand="fooddiary.create_brand();" />
-              <button label="Rename" oncommand="fooddiary.rename_brand();" />
+              <button label="&fd.create;" oncommand="fooddiary.create_brand();" />
+              <button label="&fd.rename;" oncommand="fooddiary.rename_brand();" />
             </hbox>
           </groupbox>
           <tree id="fooddiary-brands" hidecolumnpicker="true" rows="15">
             <treecols>
               <treecol id="brand-id" label="Id" hidden="true" />
-              <treecol id="brand-name" label="Brand" width="290" />
+              <treecol id="brand-name" label="&fd.brand;" width="290" />
             </treecols>
             <treechildren id="brand-children">
             </treechildren>

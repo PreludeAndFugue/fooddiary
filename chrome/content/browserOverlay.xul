@@ -2,8 +2,7 @@
 
 <?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
 
-<!DOCTYPE overlay SYSTEM
-  "chrome://fooddiary/locale/browserOverlay.dtd">
+<!DOCTYPE overlay SYSTEM "chrome://fooddiary/locale/browserOverlay.dtd">
 
 <overlay id="fooddiary-browser-overlay"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -12,8 +11,8 @@
     src="chrome://fooddiary/content/browserOverlay.js" />
   
   <menupopup id="menu_ToolsPopup">
-    <menuitem id="xs-hw-hello-menu" label="Food Diary"
-      accesskey="F"
+    <menuitem id="xs-hw-hello-menu" label="&fooddiary.menu.label;"
+      accesskey="&fooddiary.menu.accesskey;"
       insertafter="javascriptConsole,devToolsSeparator"
       oncommand="fooddiary.start(event);">
     </menuitem>
