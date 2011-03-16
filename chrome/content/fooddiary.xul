@@ -123,20 +123,20 @@
                   <!-- totals of items in main tree -->
                   <treerow>
                     <treecell label="&fd.total-g;"/>
-                    <treecell id="total-prot" label="23" />
-                    <treecell id="total-fat" label="0" />
-                    <treecell id="total-carb" label="0" />
-                    <treecell id="total-salt" label="0" />
-                    <treecell id="total-cals" label="0" />
+                    <treecell id="total-prot" label="0.0" />
+                    <treecell id="total-fat" label="0.0" />
+                    <treecell id="total-carb" label="0.0" />
+                    <treecell id="total-salt" label="0.0" />
+                    <treecell id="total-cals" label="0.0" />
                   </treerow>
                 </treeitem>
                 <treeitem>
                   <!-- calorie content -->
                   <treerow>
                     <treecell label="&fd.total-cal;" />
-                    <treecell id="total-c-prot" label="0" />
-                    <treecell id="total-c-fat" label="0" />
-                    <treecell id="total-c-carb" label="0" />
+                    <treecell id="total-c-prot" label="0.0" />
+                    <treecell id="total-c-fat" label="0.0" />
+                    <treecell id="total-c-carb" label="0.0" />
                     <treecell label="" />
                     <treecell label="" />
                   </treerow>
@@ -145,9 +145,9 @@
                   <!-- percentages -->
                   <treerow>
                     <treecell label="&fd.total-pc;" />
-                    <treecell id="total-pc-prot" label="0" />
-                    <treecell id="total-pc-fat" label="0" />
-                    <treecell id="total-pc-carb" label="0" />
+                    <treecell id="total-pc-prot" label="0.0%" />
+                    <treecell id="total-pc-fat" label="0.0%" />
+                    <treecell id="total-pc-carb" label="0.0%" />
                     <treecell label="" />
                     <treecell label="" />
                   </treerow>

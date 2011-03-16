@@ -28,6 +28,8 @@ if (!fooddiary)
  ******************************************************************************/
 fooddiary.init = function()
 {
+    fooddiary.db_check();
+    
     var datepicker = document.getElementById('fooddiary-datepicker');
     var day = datepicker.value;
 
@@ -47,6 +49,33 @@ fooddiary.init = function()
     // treeview
     var food = document.getElementById('fooddiary-food');
     food.addEventListener('select', fooddiary.food_select,false);
+}
+
+/*******************************************************************************
+ * check the database exists at the location stored in prefs.
+ ******************************************************************************/
+fooddiary.db_check = function()
+{
+    var db_path = Application.prefs.get('extensions.fooddiary.db.path');
+    
+    // if the path is an empty string, then prompt user to choose a dir. If a 
+    // file with name fooddiary.sqlite is in this dir, then update path pref.
+    // Otherwise copy an empty database from the defaults dir to the chosen
+    // dir
+    if (!db_path.value)
+    {
+        // tell user no db
+        
+        // prompt for new path
+        
+        // does db file exist in this location
+    }
+    else
+    {
+        // check db file is in specified path
+            // if yes, done
+            // if no, prompt for new path
+    }
 }
 
 /*******************************************************************************

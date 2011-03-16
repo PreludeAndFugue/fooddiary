@@ -16,10 +16,11 @@ env.VariantDir(build_dir, '.')
 # the files in the top level directory
 top_files = Split('chrome.manifest fooddiary.sqlite install.rdf LICENCE README')
 # get all the (files and) dirs in the chrome sub-directory
-sub_dirs = Glob('chrome/*')
+chrome = Glob('chrome/*')
+defaults = Glob('defaults/*')
 
 # the complete source for the xpi file
-src = top_files + sub_dirs
+src = top_files + chrome + defaults
 
 # xpi file is just a zip file
 env.Zip(xpi, src)
