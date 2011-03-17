@@ -21,6 +21,8 @@ if (!fooddiary)
     // import database functions from js resource file into the fooddiary
     // namespace
     Components.utils.import("resource://fooddiary/db.js", fooddiary);
+    // module to help with the database setup
+    Components.utils.import("resource://fooddiary/db_setup.js", fooddiary);
 }
 
 /*******************************************************************************
@@ -57,6 +59,17 @@ fooddiary.init = function()
 fooddiary.db_check = function()
 {
     var db_path = Application.prefs.get('extensions.fooddiary.db.path');
+    
+    var file = fooddiary.db_setup.picker(fooddiary.db_setup.DIR, "Choose dir");
+    if (file)
+    {
+        file.append("fooddiary.sqlite");
+        alert(file.path);
+    }
+    else
+    {
+        alert('no file selected');
+    }
     
     // if the path is an empty string, then prompt user to choose a dir. If a 
     // file with name fooddiary.sqlite is in this dir, then update path pref.

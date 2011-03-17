@@ -1,5 +1,6 @@
 /*******************************************************************************
- * database access *************************************************************
+ * database access
+ *
  ******************************************************************************/
 
 var EXPORTED_SYMBOLS = ["db"];
@@ -20,6 +21,7 @@ db.get_conn = function()
                 .get("ProfD", Components.interfaces.nsIFile);
     file.append("extensions");
     file.append("fooddiary@preludeandfugue.net");
+    file.append("defaults");
     file.append("fooddiary.sqlite");
 
     var storageService = Components.classes["@mozilla.org/storage/service;1"]

@@ -14,7 +14,7 @@ env = Environment()
 env.VariantDir(build_dir, '.')
 
 # the files in the top level directory
-top_files = Split('chrome.manifest fooddiary.sqlite install.rdf LICENCE README')
+top_files = Split('chrome.manifest install.rdf LICENCE README')
 # get all the (files and) dirs in the chrome sub-directory
 chrome = Glob('chrome/*')
 defaults = Glob('defaults/*')
