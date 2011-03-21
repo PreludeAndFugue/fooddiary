@@ -16,6 +16,7 @@ if (!db)
  ******************************************************************************/
 db.get_conn = function()
 {
+    // create path to sqlite db file
     var file = Components.classes["@mozilla.org/file/directory_service;1"]
                 .getService(Components.interfaces.nsIProperties)
                 .get("ProfD", Components.interfaces.nsIFile);

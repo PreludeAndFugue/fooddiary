@@ -31,7 +31,7 @@ if (!fooddiary)
 fooddiary.init = function()
 {
     fooddiary.db_check();
-    
+
     var datepicker = document.getElementById('fooddiary-datepicker');
     var day = datepicker.value;
 
@@ -54,13 +54,20 @@ fooddiary.init = function()
 }
 
 /*******************************************************************************
- * check the database exists at the location stored in prefs.
+ * (start-up) check the database exists at the location stored in prefs.
  ******************************************************************************/
 fooddiary.db_check = function()
 {
     var db_path = Application.prefs.get('extensions.fooddiary.db.path');
-    
-    var file = fooddiary.db_setup.picker(fooddiary.db_setup.DIR, "Choose dir");
+
+    if (!db_path.value)
+    {
+        window.openDialog("chrome://fooddiary/content/db_config.xul", "bla bla",
+            "chrome, dialog, modal");
+    }
+
+    /*
+    var file = fooddiary.db_setup.pick_dir("Choose dir");
     if (file)
     {
         file.append("fooddiary.sqlite");
@@ -70,17 +77,17 @@ fooddiary.db_check = function()
     {
         alert('no file selected');
     }
-    
-    // if the path is an empty string, then prompt user to choose a dir. If a 
+
+    // if the path is an empty string, then prompt user to choose a dir. If a
     // file with name fooddiary.sqlite is in this dir, then update path pref.
     // Otherwise copy an empty database from the defaults dir to the chosen
     // dir
     if (!db_path.value)
     {
         // tell user no db
-        
+
         // prompt for new path
-        
+
         // does db file exist in this location
     }
     else
@@ -89,6 +96,7 @@ fooddiary.db_check = function()
             // if yes, done
             // if no, prompt for new path
     }
+    */
 }
 
 /*******************************************************************************
