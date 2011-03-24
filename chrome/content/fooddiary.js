@@ -16,7 +16,10 @@ const Cu = Components.utils;
 // create namespaces for functions
 if (!fooddiary)
 {
-    var fooddiary = {};
+    var fooddiary = {
+        Cc: Components.classes,
+        Ci: Components.interfaces,
+    };
 
     // import database functions from js resource file into the fooddiary
     // namespace
@@ -31,6 +34,15 @@ if (!fooddiary)
 fooddiary.init = function()
 {
     fooddiary.db_check();
+    
+    var prefs = Components.classes["@mozilla.org/preferences-service;1"].
+            getService(Components.interfaces.nsIPrefService).
+            getBranch("extensions.fooddiary.");
+    var file = prefs.getComplexValue("db.path", Components.interfaces.nsILocalFile);
+    //var path_string = Application.prefs.get('extensions.fooddiary.db.path').value;
+    //alert('path string: ' + file.path);
+    fooddiary.db.init(file);
+    //alert('db path object: ' + fooddiary.db.db_path);
 
     var datepicker = document.getElementById('fooddiary-datepicker');
     var day = datepicker.value;

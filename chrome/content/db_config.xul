@@ -3,11 +3,11 @@
 
 <dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
     title="Database setup"
-    buttons="accept, cancel"
+    buttons="accept"
     onload="fd.init();"
     ondialogaccept="fd.accept();"
-    ondialogcancel="fd.cancel();"
-    buttonlabelaccept="Save">
+    width="400"
+    height="270">
 
     <script type="application/x-javascript"
           src="chrome://fooddiary/content/db_config.js" />
@@ -23,8 +23,8 @@
             existing food diary database file on disk.
         </description>
 		<hbox>
-			<label value="Database" control="fooddiary-db-location"/>
-			<textbox id="fd-db-location" flex="1" disabled="true"/>
+			<label value="Database" control="fooddiary-db-location" />
+			<textbox id="fd-db-location" flex="1" readonly="true" />
 		</hbox>
 		<hbox>
 			<grid>

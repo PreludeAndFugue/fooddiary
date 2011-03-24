@@ -16,41 +16,32 @@ if (!fd) var fd =
     pref_path: null,
     // the textbox which displays the path
     location: null,
-    // the location chosen by the user
+    // the location chosen by the user (nsIFileLocal instance)
     path: null,
-    // the accept button
-    button_accept: null,
-    // the cancel button
-    button_cancel: null,
+    // is a new file being created
+    new_file: false,
 
     init: function()
     {
         //window.screenX = (window.screen.width - window.outerWidth)/2;
         //window.screenY = (window.screen.height - window.outerHeight)/2;
-        window.centerWindowOnScreen();
-        this.pref_path = Application.prefs.get('extensions.fooddiary.db.path');
+        window.screenX = (window.screen.width - 400)/2;
+        window.screenY = (window.screen.height - 270)/2;
+        //window.centerWindowOnScreen();
+        this.pref_path = this.get_pref_path();
         this.location = document.getElementById("fd-db-location");
-        // set the accept and cancel buttons
-        this.button_accept = document.documentElement.getButton("accept");
-        this.button_cancel = document.documentElement.getButton("cancel");
-        // disable the accept and cancel buttons
-        this.button_accept.disabled = true;
-        this.button_cancel.disabled = true;
     },
 
     accept: function()
     {
-        alert('ok');
         // set default path to new location
+        this.save_pref_path(this.path);
 
-
-        return this.path;
-    },
-
-    cancel: function()
-    {
-        alert('cancel');
-        return null;
+        if (this.new_file)
+        {
+            // copy default db to new location
+            this.copy_db(this.path.parent);
+        }
     },
 
     /***********************************************************************
@@ -58,12 +49,16 @@ if (!fd) var fd =
      **********************************************************************/
     config_dir: function()
     {
-        this.path = this.db_setup.pick_dir("Choose a directory in which to save the database.");
+        var prompt = "Choose a directory in which to save the database.";
+        this.path = this.db_setup.pick_dir(prompt);
 
         if (this.path)
         {
             this.path.append("fooddiary.sqlite");
+            // fill in the path in the textbox
             this.location.value = this.path.path;
+            // creating a new database file
+            this.new_file = true;
         }
     },
 
@@ -72,33 +67,66 @@ if (!fd) var fd =
      **********************************************************************/
     config_file: function()
     {
-        this.path = this.db_setup.pick_file("Choose an existing food diary database.");
+        var prompt = "Choose an existing food diary database.";
+        // this.path will be null if anything other than a sqlite db is chosen
+        this.path = this.db_setup.pick_file(prompt);
 
-        if (this.path && this.is_valid_db(this.path))
+        if (this.path)
         {
+            // fill in the textbox
             this.location.value = this.path.path;
+            // using an existing file
+            this.new_file = false;
         }
     },
 
-    /***************************************************************************
-     * Is a path object a valid sqlite database
-     **************************************************************************/
-    is_valid_db: function(path)
+    /*******************************************************************************
+     * save a path to the prefs
+     ******************************************************************************/
+    save_pref_path: function(path)
     {
-        var storageService = this.Cc["@mozilla.org/storage/service;1"]
-                        .getService(this.Ci.mozIStorageService);
+        var prefs = this.Cc["@mozilla.org/preferences-service;1"].
+            getService(this.Ci.nsIPrefService).
+            getBranch("extensions.fooddiary.");
+
+        prefs.setComplexValue('db.path', this.Ci.nsILocalFile, path);
+    },
+    
+    /*******************************************************************************
+     * get path from prefs
+     ******************************************************************************/
+    get_pref_path: function()
+    {
+        var prefs = this.Cc["@mozilla.org/preferences-service;1"].
+            getService(this.Ci.nsIPrefService).
+            getBranch("extensions.fooddiary.");
+
+        return prefs.getComplexValue('db.path', this.Ci.nsILocalFile);
+    },
+
+    /***************************************************************************
+     * copy default db to new location
+     **************************************************************************/
+    copy_db: function(new_path)
+    {
+        // the default db
+        var db = this.Cc["@mozilla.org/file/directory_service;1"]
+                    .getService(this.Ci.nsIProperties)
+                    .get("ProfD", this.Ci.nsIFile);
+        db.append('extensions');
+        db.append('fooddiary@preludeandfugue.net');
+        db.append('defaults');
+        db.append("fooddiary.sqlite");
+
         try
         {
-            var db = storageService.openDatabase(path);
+            db.copyTo(new_path, null);
         }
         catch (e)
         {
-            // error will be thrown when path is not a valid sqlite file
-            return false;
+            // what should happen here?
+            //alert(e);
         }
-        // no error thrown so close database
-        db.close();
-        return true;
     },
 };
 
