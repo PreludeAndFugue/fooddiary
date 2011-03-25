@@ -101,7 +101,16 @@ if (!fd) var fd =
             getService(this.Ci.nsIPrefService).
             getBranch("extensions.fooddiary.");
 
-        return prefs.getComplexValue('db.path', this.Ci.nsILocalFile);
+        try
+        {
+            var result = prefs.getComplexValue('db.path', this.Ci.nsILocalFile);
+        }
+        catch (e)
+        {
+            var result = '';
+        }
+        
+        return result;
     },
 
     /***************************************************************************
@@ -121,6 +130,24 @@ if (!fd) var fd =
         try
         {
             db.copyTo(new_path, null);
+            
+            // hack - a small pause to make sure the file is copied before
+            // anything else is allowed to happen
+            
+            copy_db.file_exists = false;
+            var new_file = new_path.append('fooddiary.sqlite');
+            
+            function test(file)
+            {
+
+                copy_db.file_exists = file.exists();
+            }
+            
+            while (!file_exists)
+            {
+                window.setTimeout(test, 50, new_file);
+            }
+            
         }
         catch (e)
         {
