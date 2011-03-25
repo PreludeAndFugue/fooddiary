@@ -6,13 +6,12 @@
 var EXPORTED_SYMBOLS = ["db"];
 
 if (!db) var db = {
+
+    // nsiLocalFile object
     db_path: null,
     
     init: function(path)
     {
-        //var localf = Components.classes["@mozilla.org/file/local;1"]
-        //            .createInstance(Components.interfaces.nsILocalFile);
-        //this.db_path = localf.initWithPath(path_string);
         this.db_path = path;
     },
 };
@@ -23,20 +22,10 @@ if (!db) var db = {
  ******************************************************************************/
 db.get_conn = function()
 {
-    // create path to sqlite db file
-    //var file = Components.classes["@mozilla.org/file/directory_service;1"]
-    //            .getService(Components.interfaces.nsIProperties)
-    //            .get("ProfD", Components.interfaces.nsIFile);
-    //file.append('extensions');
-    //file.append('fooddiary@preludeandfugue.net');
-    //file.append('defaults');
-    //file.append("fooddiary.sqlite");
-
     var storageService = Components.classes["@mozilla.org/storage/service;1"]
                         .getService(Components.interfaces.mozIStorageService);
     // Will also create the file if it does not exist - note that file must be
     // a valid sqlite db
-    //return storageService.openDatabase(file);
     return storageService.openDatabase(this.db_path);
 }
 

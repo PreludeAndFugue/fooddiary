@@ -17,20 +17,33 @@ if (!fooddiary) var fooddiary = {
     Cc: Components.classes,
     Ci: Components.interfaces,
     Cu: Components.utils,
+    
+    // nsILocalFile
+    db_path: null,
 
     /***************************************************************************
      * Initialisation - called when the interface has loaded (onload)
      **************************************************************************/
     init: function()
     {
-        this.db_check();
-
+        // get the current value of the database on disk
         var prefs = this.Cc["@mozilla.org/preferences-service;1"].
                 getService(this.Ci.nsIPrefService).
                 getBranch("extensions.fooddiary.");
-        var file = prefs.getComplexValue("db.path", this.Ci.nsILocalFile);
+        try
+        {
+            this.db_path = prefs.getComplexValue("db.path", this.Ci.nsILocalFile);
+        }
+        catch (e)
+        {
+            // do nothing
+        }
+        
+        // check the db exists, etc
+        this.db_check();
 
-        this.db.init(file);
+        // initialise db
+        this.db.init(this.db_path);
 
         var datepicker = document.getElementById('fooddiary-datepicker');
         var day = datepicker.value;
@@ -58,9 +71,9 @@ if (!fooddiary) var fooddiary = {
      **************************************************************************/
     db_check: function()
     {
-        var db_path = Application.prefs.get('extensions.fooddiary.db.path');
+        //var db_path = Application.prefs.get('extensions.fooddiary.db.path');
 
-        if (!db_path.value)
+        if (!this.db_path || (this.db_path && !this.db_path.exists()))
         {
             window.openDialog("chrome://fooddiary/content/db_config.xul",
                 "bla bla", "chrome, dialog, modal");
