@@ -20,6 +20,8 @@ if (!fd) var fd =
     path: null,
     // is a new file being created
     new_file: false,
+    // results to be passed back to main window
+    return_values: null,
 
     init: function()
     {
@@ -30,6 +32,8 @@ if (!fd) var fd =
         //window.centerWindowOnScreen();
         this.pref_path = this.get_pref_path();
         this.location = document.getElementById("fd-db-location");
+        // capture the return values object from the incoming arguments
+        this.return_values = window.arguments[0];
     },
 
     accept: function()
@@ -59,6 +63,9 @@ if (!fd) var fd =
             this.location.value = this.path.path;
             // creating a new database file
             this.new_file = true;
+
+            // set the return value for the main window
+            this.return_values.new_path = this.path;
         }
     },
 
@@ -77,6 +84,8 @@ if (!fd) var fd =
             this.location.value = this.path.path;
             // using an existing file
             this.new_file = false;
+            // set the return value for the main window
+            this.return_values.new_path = this.path;
         }
     },
 
@@ -91,7 +100,7 @@ if (!fd) var fd =
 
         prefs.setComplexValue('db.path', this.Ci.nsILocalFile, path);
     },
-    
+
     /***************************************************************************
      * get path from prefs
      **************************************************************************/
@@ -109,7 +118,7 @@ if (!fd) var fd =
         {
             var result = '';
         }
-        
+
         return result;
     },
 
@@ -130,24 +139,6 @@ if (!fd) var fd =
         try
         {
             db.copyTo(new_path, null);
-            
-            // hack - a small pause to make sure the file is copied before
-            // anything else is allowed to happen
-            
-            copy_db.file_exists = false;
-            var new_file = new_path.append('fooddiary.sqlite');
-            
-            function test(file)
-            {
-
-                copy_db.file_exists = file.exists();
-            }
-            
-            while (!file_exists)
-            {
-                window.setTimeout(test, 50, new_file);
-            }
-            
         }
         catch (e)
         {

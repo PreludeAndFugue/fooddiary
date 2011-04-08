@@ -12,12 +12,12 @@ if (!db) var db = {
 
     // nsiLocalFile object
     db_path: null,
-    
+
     init: function(path)
     {
         this.db_path = path;
     },
-    
+
     /***************************************************************************
      * Get a connection to the sqlite dababase on disk in the extension
      * directory
@@ -30,7 +30,7 @@ if (!db) var db = {
         // be a valid sqlite db
         return storageService.openDatabase(this.db_path);
     },
-    
+
     /***************************************************************************
      * Get an array of all the brands in the database
      **************************************************************************/
@@ -50,7 +50,7 @@ if (!db) var db = {
         // TODO: how to close a database connection?
         //db.close();
     },
-    
+
     /***************************************************************************
      * add a new brand to the database
      **************************************************************************/
@@ -62,7 +62,7 @@ if (!db) var db = {
         statement.params.brand = new_brand_name;
         statement.execute();
     },
-    
+
     /***************************************************************************
      * rename a brand
      **************************************************************************/
@@ -75,7 +75,7 @@ if (!db) var db = {
         statement.params.new_name = new_name;
         statement.execute();
     },
-    
+
     /***************************************************************************
      * Does the brand name already exist in the database
      * Parameter:
@@ -95,7 +95,7 @@ if (!db) var db = {
 
         return result;
     },
-    
+
     /***************************************************************************
      * Get an array of all the foods in the database
      * Parameter:
@@ -128,7 +128,7 @@ if (!db) var db = {
 
         statement.reset();
     },
-    
+
     /***************************************************************************
      * Get a particular food item row by food_id
      **************************************************************************/
@@ -157,7 +157,7 @@ if (!db) var db = {
 
         return result
     },
-    
+
     /***************************************************************************
      * Does the food item already exist in the database
      * Parameter:
@@ -189,7 +189,7 @@ if (!db) var db = {
 
         return result;
     },
-    
+
     /***************************************************************************
      * update a food item in the food table
      **************************************************************************/
@@ -207,7 +207,7 @@ if (!db) var db = {
 
         statement.execute();
     },
-    
+
     /***************************************************************************
      * create a new food item in the food table
      **************************************************************************/
@@ -226,7 +226,7 @@ if (!db) var db = {
 
         statement.execute();
     },
-    
+
     /***************************************************************************
      * get the diary items for a particular day
      * Parameter:
@@ -258,7 +258,7 @@ if (!db) var db = {
 
         statement.reset();
     },
-    
+
     /***************************************************************************
      *
      *
@@ -303,7 +303,7 @@ if (!db) var db = {
 
         return result;
     },
-    
+
     /***************************************************************************
      * Has a particular food item been added to a particular day in the diary.
      * Paramaters:
@@ -326,7 +326,7 @@ if (!db) var db = {
 
         return result
     },
-    
+
     /***************************************************************************
      * add a new item to the diary or update an existing one
      * Parameters:
@@ -345,7 +345,7 @@ if (!db) var db = {
         statement.params.amount = amount;
         statement.execute();
     },
-    
+
     /***************************************************************************
      *
      *
@@ -361,7 +361,7 @@ if (!db) var db = {
         statement.params.amount = amount;
         statement.execute();
     },
-    
+
     /***************************************************************************
      * does a particular day already have a record in the database
      * Parameter:
@@ -390,7 +390,7 @@ if (!db) var db = {
 
         return result;
     },
-    
+
     /***************************************************************************
      * add a new day to the database
      * Parameters:

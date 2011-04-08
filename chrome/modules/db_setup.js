@@ -33,6 +33,8 @@ if (!db_setup) var db_setup = {
                 break;
             case this.FILE:
             default:
+                // add sqlite filter
+                file_picker.appendFilter('sqlite db', '*.sqlite');
                 var mode = ifp.modeOpen;
                 break;
         }

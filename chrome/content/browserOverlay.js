@@ -1,8 +1,8 @@
-fooddiary = {};
+var fooddiary = {};
 
 /*******************************************************************************
  * called when the 'Food Diary' menu button in the Tools menu is clicked. Opens
- * the Xul interface in a new tab of the browser.
+ * the XUL interface in a new tab of the browser.
  ******************************************************************************/
 fooddiary.start = function(e)
 {

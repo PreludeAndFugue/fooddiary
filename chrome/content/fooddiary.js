@@ -6,18 +6,13 @@
  * Core functionality for the fooddiary extension.
  ******************************************************************************/
 
-/*
-const Cr = Components.results;
-const Cu = Components.utils;
-*/
-
 // create namespaces for functions
 if (!fooddiary) var fooddiary = {
 
     Cc: Components.classes,
     Ci: Components.interfaces,
     Cu: Components.utils,
-    
+
     // nsILocalFile
     db_path: null,
 
@@ -38,11 +33,11 @@ if (!fooddiary) var fooddiary = {
         {
             // do nothing
         }
-        
+
         // check the db exists, etc
         this.db_check();
 
-        // initialise db
+        // initialise db - make sure it has the correct path to the db file
         this.db.init(this.db_path);
 
         var datepicker = document.getElementById('fooddiary-datepicker');
@@ -75,8 +70,14 @@ if (!fooddiary) var fooddiary = {
 
         if (!this.db_path || (this.db_path && !this.db_path.exists()))
         {
+            var dialog_result = {new_path: null};
+
             window.openDialog("chrome://fooddiary/content/db_config.xul",
-                "bla bla", "chrome, dialog, modal");
+                "bla bla", "chrome, dialog, modal", dialog_result);
+
+            this.db_path = dialog_result.new_path;
+            // why does this not work?
+            //Components.utils.ReportError(this.db_path.path);
         }
     },
 

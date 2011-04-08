@@ -13,40 +13,39 @@
           src="chrome://fooddiary/content/db_config.js" />
 
     <groupbox>
-        <caption style="font-weight:bold;font-size:1.2em;">
-            Set the database location
-        </caption>
-		<description>
+        <caption style="font-weight:bold;font-size:1.2em;"
+            label="Set the database location" />
+        <description>
             You need to specify the location of the database before
             you can use this extension. You can either choose
             the location to save a new database, or choose an
             existing food diary database file on disk.
         </description>
-		<hbox>
-			<label value="Database" control="fooddiary-db-location" />
-			<textbox id="fd-db-location" flex="1" readonly="true" />
-		</hbox>
-		<hbox>
-			<grid>
-				<columns>
-					<column/>
-					<column/>
-				</columns>
-				<rows>
-					<row>
-						<label control="fooddiary-browse-dir"
+        <hbox>
+            <label value="Database" control="fooddiary-db-location" />
+            <textbox id="fd-db-location" flex="1" readonly="true" />
+        </hbox>
+        <hbox>
+            <grid>
+                <columns>
+                    <column/>
+                    <column/>
+                </columns>
+                <rows>
+                    <row>
+                        <label control="fooddiary-browse-dir"
                             value="Browse for a location to save a new database"/>
-						<button id="fooddiary-browse-dir" label="Browse"
+                        <button id="fooddiary-browse-dir" label="Browse"
                             oncommand="fd.config_dir();" />
-					</row>
-					<row>
-						<label control="fooddiary-browse-file"
+                    </row>
+                    <row>
+                        <label control="fooddiary-browse-file"
                             value="Browse for an existing database"/>
-						<button id="fooddiary-browse-file" label="Browse"
+                        <button id="fooddiary-browse-file" label="Browse"
                             oncommand="fd.config_file();" />
-					</row>
-				</rows>
-			</grid>
-		</hbox>
+                    </row>
+                </rows>
+            </grid>
+        </hbox>
     </groupbox>
 </dialog>
