@@ -1,0 +1,6 @@
+<!ENTITY fd.title "Database Setup">
+<!ENTITY fd.description "You need to specify the location of the database before you can use this extension. You can either choose the location to save a new database, or choose an existing food diary database file on disk.">
+<!ENTITY fd.database "Database">
+<!ENTITY fd.browsedir "Browse for a location to save a new database">
+<!ENTITY fd.browsefile "Browse for an existing database">
+<!ENTITY fd.browse "Browse">

@@ -53,8 +53,10 @@ if (!fd) var fd =
      **************************************************************************/
     config_dir: function()
     {
-        var prompt = "Choose a directory in which to save the database.";
-        this.path = this.db_setup.pick_dir(prompt);
+        var strbundle = document.getElementById("fd-strings");
+        var choose_dir = strbundle.getString("choose_dir");
+
+        this.path = this.db_setup.pick_dir(choose_dir);
 
         if (this.path)
         {
@@ -74,9 +76,10 @@ if (!fd) var fd =
      **************************************************************************/
     config_file: function()
     {
-        var prompt = "Choose an existing food diary database.";
+        var strbundle = document.getElementById("fd-strings");
+        var choose_file = strbundle.getString("choose_file");
         // this.path will be null if anything other than a sqlite db is chosen
-        this.path = this.db_setup.pick_file(prompt);
+        this.path = this.db_setup.pick_file(choose_file);
 
         if (this.path)
         {

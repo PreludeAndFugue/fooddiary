@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
+<!DOCTYPE window SYSTEM "chrome://fooddiary/locale/db_config.dtd">
+
 <dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-    title="Database setup"
+    title="&fd.title;"
     buttons="accept"
     onload="fd.init();"
     ondialogaccept="fd.accept();"
@@ -11,18 +13,18 @@
 
     <script type="application/x-javascript"
           src="chrome://fooddiary/content/db_config.js" />
+          
+    <stringbundleset id="stringbundleset">
+    <stringbundle id="fd-strings"
+        src="chrome://fooddiary/locale/db_config.properties" />
+    </stringbundleset>
 
     <groupbox>
         <caption style="font-weight:bold;font-size:1.2em;"
             label="Set the database location" />
-        <description>
-            You need to specify the location of the database before
-            you can use this extension. You can either choose
-            the location to save a new database, or choose an
-            existing food diary database file on disk.
-        </description>
+        <description>&fd.description;</description>
         <hbox>
-            <label value="Database" control="fooddiary-db-location" />
+            <label value="&fd.database;" control="fooddiary-db-location" />
             <textbox id="fd-db-location" flex="1" readonly="true" />
         </hbox>
         <hbox>
@@ -34,14 +36,14 @@
                 <rows>
                     <row>
                         <label control="fooddiary-browse-dir"
-                            value="Browse for a location to save a new database"/>
-                        <button id="fooddiary-browse-dir" label="Browse"
+                            value="&fd.browsedir;"/>
+                        <button id="fooddiary-browse-dir" label="&fd.browse;"
                             oncommand="fd.config_dir();" />
                     </row>
                     <row>
                         <label control="fooddiary-browse-file"
-                            value="Browse for an existing database"/>
-                        <button id="fooddiary-browse-file" label="Browse"
+                            value="&fd.browsefile;"/>
+                        <button id="fooddiary-browse-file" label="&fd.browse;"
                             oncommand="fd.config_file();" />
                     </row>
                 </rows>
