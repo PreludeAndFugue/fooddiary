@@ -5,10 +5,10 @@
  *
  ******************************************************************************/
 
-// note: importing db_setup.js at bottom of code, after setting up fd.
+// note: importing db_setup.js at bottom of code, after setting up fd_config.
 
 // create namespaces for functions
-if (!fd) var fd =
+if (typeof(fd_config) == 'undefined') var fd_config =
 {
     Cc: Components.classes,
     Ci: Components.interfaces,
@@ -152,4 +152,4 @@ if (!fd) var fd =
 };
 
 // module to help with the database setup
-Components.utils.import("resource://fooddiary/db_setup.js", fd);
+Components.utils.import("resource://fooddiary/db_setup.js", fd_config);

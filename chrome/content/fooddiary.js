@@ -7,7 +7,7 @@
  ******************************************************************************/
 
 // create namespaces for functions
-if (!fooddiary) var fooddiary = {
+if (typeof(fooddiary) == 'undefined') var fooddiary = {
 
     Cc: Components.classes,
     Ci: Components.interfaces,

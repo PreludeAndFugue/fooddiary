@@ -6,14 +6,14 @@
 <dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
     title="&fd.title;"
     buttons="accept"
-    onload="fd.init();"
-    ondialogaccept="fd.accept();"
+    onload="fd_config.init();"
+    ondialogaccept="fd_config.accept();"
     width="400"
     height="270">
 
     <script type="application/x-javascript"
           src="chrome://fooddiary/content/db_config.js" />
-          
+
     <stringbundleset id="stringbundleset">
     <stringbundle id="fd-strings"
         src="chrome://fooddiary/locale/db_config.properties" />
@@ -38,13 +38,13 @@
                         <label control="fooddiary-browse-dir"
                             value="&fd.browsedir;"/>
                         <button id="fooddiary-browse-dir" label="&fd.browse;"
-                            oncommand="fd.config_dir();" />
+                            oncommand="fd_config.config_dir();" />
                     </row>
                     <row>
                         <label control="fooddiary-browse-file"
                             value="&fd.browsefile;"/>
                         <button id="fooddiary-browse-file" label="&fd.browse;"
-                            oncommand="fd.config_file();" />
+                            oncommand="fd_config.config_file();" />
                     </row>
                 </rows>
             </grid>

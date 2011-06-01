@@ -1,4 +1,5 @@
-var fooddiary = {};
+if (typeof(fooddiary) == 'undefined')
+    var fooddiary = {};
 
 /*******************************************************************************
  * called when the 'Food Diary' menu button in the Tools menu is clicked. Opens
