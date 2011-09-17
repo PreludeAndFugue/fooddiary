@@ -9,7 +9,7 @@
 
   <script type="application/x-javascript"
     src="chrome://fooddiary/content/browserOverlay.js" />
-
+  <!--
   <menupopup id="menu_ToolsPopup">
     <menuitem id="xs-hw-hello-menu" label="&fooddiary.menu.label;"
       accesskey="&fooddiary.menu.accesskey;"
@@ -17,5 +17,10 @@
       oncommand="fooddiary.start(event);">
     </menuitem>
   </menupopup>
+  -->
 
+    <statusbar id="status-bar">
+        <statusbarpanel id="fooddiary-panel" label="Food Diary"
+            onclick="fooddiary.start(event);"/>
+    </statusbar>
 </overlay>
