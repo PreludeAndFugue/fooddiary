@@ -7,11 +7,16 @@ var EXPORTED_SYMBOLS = ["db_setup"];
 
 if (!db_setup) var db_setup = {
 
-    Cc: Components.classes,
-    Ci: Components.interfaces,
+    Cc: null, //Components.classes,
+    Ci: null, //Components.interfaces,
 
     FILE: 0,
     DIR: 1,
+
+    init: function() {
+        this.Cc = Components.classes;
+        this.Ci = Components.interfaces;
+    },
 
     /***************************************************************************
      * Prompt the user for the location for a file or a dir

@@ -10,8 +10,12 @@
 // create namespaces for functions
 if (typeof(fd_config) == 'undefined') var fd_config =
 {
+    /*
     Cc: Components.classes,
     Ci: Components.interfaces,
+    */
+    Cc: null,
+    Ci: null,
     // the path stored in the preferences
     pref_path: null,
     // the textbox which displays the path
@@ -25,6 +29,11 @@ if (typeof(fd_config) == 'undefined') var fd_config =
 
     init: function()
     {
+        this.Cc = Components.classes;
+        this.Ci = Components.interfaces;
+
+        this.db_setup.init();
+
         //window.screenX = (window.screen.width - window.outerWidth)/2;
         //window.screenY = (window.screen.height - window.outerHeight)/2;
         window.screenX = (window.screen.width - 400)/2;

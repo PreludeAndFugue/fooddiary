@@ -7,14 +7,16 @@ var EXPORTED_SYMBOLS = ["db"];
 
 if (!db) var db = {
 
-    Cc: Components.classes,
-    Ci: Components.interfaces,
+    Cc: null, //Components.classes,
+    Ci: null, //Components.interfaces,
 
     // nsiLocalFile object
     db_path: null,
 
     init: function(path)
     {
+        this.Cc = Components.classes;
+        this.Ci = Components.interfaces;
         this.db_path = path;
     },
 

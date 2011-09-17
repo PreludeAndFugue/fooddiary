@@ -9,9 +9,14 @@
 // create namespaces for functions
 if (typeof(fooddiary) == 'undefined') var fooddiary = {
 
+    /*
     Cc: Components.classes,
     Ci: Components.interfaces,
     Cu: Components.utils,
+    */
+    Cc: null,
+    Ci: null,
+    Cu: null,
 
     // nsILocalFile
     db_path: null,
@@ -21,6 +26,10 @@ if (typeof(fooddiary) == 'undefined') var fooddiary = {
      **************************************************************************/
     init: function()
     {
+        this.Cc = Components.classes;
+        this.Ci = Components.interfaces;
+        this.Cu = Components.utils;
+    
         // get the current value of the database on disk
         var prefs = this.Cc["@mozilla.org/preferences-service;1"].
                 getService(this.Ci.nsIPrefService).
