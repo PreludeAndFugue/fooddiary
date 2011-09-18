@@ -6,9 +6,9 @@
 <dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
     title="&fd.title;"
     buttons="accept, cancel"
-    onload="init();"
-    ondialogaccept="accept();"
-    ondialogcancel="cancel();">
+    onload="fd_message.init();"
+    ondialogaccept="fd_message.accept();"
+    ondialogcancel="fd_message.cancel();">
 
   <script type="application/x-javascript"
           src="chrome://fooddiary/content/message.js" />
