@@ -29,6 +29,9 @@ if (typeof(fd_config) == 'undefined') var fd_config =
 
     init: function()
     {
+        //console.log('hello from db_config.js');
+        alert('hello from db_config.js');
+    
         this.Cc = Components.classes;
         this.Ci = Components.interfaces;
 
@@ -36,8 +39,8 @@ if (typeof(fd_config) == 'undefined') var fd_config =
 
         //window.screenX = (window.screen.width - window.outerWidth)/2;
         //window.screenY = (window.screen.height - window.outerHeight)/2;
-        window.screenX = (window.screen.width - 400)/2;
-        window.screenY = (window.screen.height - 270)/2;
+        //window.screenX = (window.screen.width - 400)/2;
+        //window.screenY = (window.screen.height - 270)/2;
         //window.centerWindowOnScreen();
         this.pref_path = this.get_pref_path();
         this.location = document.getElementById("fd-db-location");
@@ -147,6 +150,13 @@ if (typeof(fd_config) == 'undefined') var fd_config =
         db.append('fooddiary@preludeandfugue.net');
         db.append('defaults');
         db.append("fooddiary.sqlite");
+        
+        //console.log('db_config.js, db path: ', db);
+        //alert('copying db to new location');
+        //alert('db location: ' + db.path);
+        //alert('db exists: ' + db.exists());
+        //alert('new path: ' + new_path.path);
+        //alert('new path is dir: ' + new_path.isDirectory());
 
         try
         {

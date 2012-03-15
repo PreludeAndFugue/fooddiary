@@ -7,8 +7,8 @@ if (typeof(fd_message) == 'undefined') var fd_message =
         document.title = params.title
         document.getElementById('main-message').value = params.message;
         // centre the dialog on the screen
-        window.screenX = (window.screen.width - window.outerWidth)/2;
-        window.screenY = (window.screen.height - window.outerHeight)/2;
+        //window.screenX = (window.screen.width - window.outerWidth)/2;
+        //window.screenY = (window.screen.height - window.outerHeight)/2;
     },
 
     accept: function()

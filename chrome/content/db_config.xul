@@ -24,7 +24,7 @@
             label="Set the database location" />
         <description>&fd.description;</description>
         <hbox>
-            <label value="&fd.database;" control="fooddiary-db-location" />
+            <label value="&fd.database;" control="fd-db-location" />
             <textbox id="fd-db-location" flex="1" readonly="true" />
         </hbox>
         <hbox>

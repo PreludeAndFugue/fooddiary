@@ -254,7 +254,7 @@ if (typeof(fooddiary) == 'undefined') var fooddiary = {
 
         // trim leading and trailing whitespace
         new_brand = new_brand.trim();
-
+        
         var brand_exists = this.db.is_brand_in_db(new_brand);
 
         if (brand_exists)
